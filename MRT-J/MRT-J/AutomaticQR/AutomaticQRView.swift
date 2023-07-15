@@ -8,15 +8,12 @@
 import SwiftUI
 
 struct AutomaticQRView: View {
-    private let dummyName = "Leonardo Wijaya"
-    private let dummyEmail = "leonardo.wijaya003@binus.ac.id"
     @ObservedObject var automaticQRVM: AutomaticQRViewModel = AutomaticQRViewModel()
     
     var body: some View {
         VStack {
             Text("Scan QR code to enter")
                 .font(.system(size: 24, weight: .semibold))
-            
             ZStack(alignment: .leading) {
                 Color(hex: "#263558")
                 VStack(alignment: .leading) {
@@ -27,7 +24,7 @@ struct AutomaticQRView: View {
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.white)
                         Spacer()
-                    Image(uiImage: automaticQRVM.generateQRCode(name: dummyName, email: dummyEmail))
+                    Image(uiImage: automaticQRVM.qrCodeImage ?? UIImage())
                         .resizable()
                         .scaledToFit()
                         .frame(width: 270, height: 285)

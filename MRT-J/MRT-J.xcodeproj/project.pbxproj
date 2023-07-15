@@ -14,6 +14,7 @@
 		1555BF2E2A62D99600BCD227 /* AutomaticQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1555BF2D2A62D99600BCD227 /* AutomaticQRView.swift */; };
 		1555BF302A62D9A000BCD227 /* AutomaticQRViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1555BF2F2A62D9A000BCD227 /* AutomaticQRViewModel.swift */; };
 		15CD927A2A62DB3A00B4DCA1 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92792A62DB3A00B4DCA1 /* HexColor.swift */; };
+		15CD927C2A62EEA300B4DCA1 /* CoreLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD927B2A62EEA300B4DCA1 /* CoreLocationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		1555BF2D2A62D99600BCD227 /* AutomaticQRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticQRView.swift; sourceTree = "<group>"; };
 		1555BF2F2A62D9A000BCD227 /* AutomaticQRViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomaticQRViewModel.swift; sourceTree = "<group>"; };
 		15CD92792A62DB3A00B4DCA1 /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
+		15CD927B2A62EEA300B4DCA1 /* CoreLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			children = (
 				1555BF2D2A62D99600BCD227 /* AutomaticQRView.swift */,
 				1555BF2F2A62D9A000BCD227 /* AutomaticQRViewModel.swift */,
+				15CD927B2A62EEA300B4DCA1 /* CoreLocationViewModel.swift */,
 			);
 			path = AutomaticQR;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15CD927C2A62EEA300B4DCA1 /* CoreLocationViewModel.swift in Sources */,
 				1555BF1F2A61466100BCD227 /* ContentView.swift in Sources */,
 				1555BF1D2A61466100BCD227 /* MRT_JApp.swift in Sources */,
 				15CD927A2A62DB3A00B4DCA1 /* HexColor.swift in Sources */,
@@ -298,6 +302,7 @@
 				DEVELOPMENT_TEAM = R4FBGZQ29P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs to access your location data to tell you your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -327,6 +332,7 @@
 				DEVELOPMENT_TEAM = R4FBGZQ29P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs to access your location data to tell you your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

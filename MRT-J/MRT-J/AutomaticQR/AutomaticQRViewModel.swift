@@ -10,20 +10,44 @@ import CoreImage.CIFilterBuiltins
 import Foundation
 
 class AutomaticQRViewModel: ObservableObject {
+    
+    @Published var qrCodeImage: UIImage?
+    
+    private var coreLocationVM: CoreLocationViewModel = CoreLocationViewModel()
+    
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
+    private var timer: Timer?
     
-    func generateQRCode(name: String, email: String) -> UIImage {
-        guard let data = generateJSONData(name: name, email: email) else { return UIImage(systemName: "xmark.circle") ?? UIImage() }
+    init() {
+        startTimer()
+    }
+    
+    deinit {
+        stopTimer()
+    }
+    
+    private func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
+            self?.generateQRCode(name: "Leonardo Wijaya", email: "leonardo.wijaya003@binus.ac.id")
+        }
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func generateQRCode(name: String, email: String) {
+        coreLocationVM.locationManager.requestLocation()
+        guard let data = generateJSONData(name: name, email: email) else { return }
         filter.message = Data(data)
         
         if let outputImage = filter.outputImage {
             if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
-                return UIImage(cgImage: cgimg)
+                qrCodeImage = UIImage(cgImage: cgimg)
             }
         }
-        
-        return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
     
     private func generateJSONData(name: String, email: String) -> Data? {
@@ -34,7 +58,9 @@ class AutomaticQRViewModel: ObservableObject {
         let jsonDict: [String: Any] = [
             "name": name,
             "email": email,
-            "timestamp": currentTime
+            "timestamp": currentTime,
+            "latitude": coreLocationVM.locationManager.location?.coordinate.latitude.description ?? "nil",
+            "longitude": coreLocationVM.locationManager.location?.coordinate.longitude.description ?? "nil"
         ]
         
         do {
