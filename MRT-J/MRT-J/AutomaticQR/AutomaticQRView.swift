@@ -1,0 +1,55 @@
+//
+//  AutomaticQRView.swift
+//  MRT-J
+//
+//  Created by Leonardo Wijaya on 15/07/23.
+//
+
+import SwiftUI
+
+struct AutomaticQRView: View {
+    private let dummyName = "Leonardo Wijaya"
+    private let dummyEmail = "leonardo.wijaya003@binus.ac.id"
+    @ObservedObject var automaticQRVM: AutomaticQRViewModel = AutomaticQRViewModel()
+    
+    var body: some View {
+        VStack {
+            Text("Scan QR code to enter")
+                .font(.system(size: 24, weight: .semibold))
+            
+            ZStack(alignment: .leading) {
+                Color(hex: "#263558")
+                VStack(alignment: .leading) {
+                    Text("Balance")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(.white)
+                    Text("Rp. 20.000")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(.white)
+                        Spacer()
+                    Image(uiImage: automaticQRVM.generateQRCode(name: dummyName, email: dummyEmail))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 270, height: 285)
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Text("Reset in 30s")
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundColor(.white)
+                        Spacer()
+                    }
+                }
+                .padding(EdgeInsets(top: 24, leading: 34, bottom: 24, trailing: 34))
+            }
+            .frame(width: 337, height: 441)
+            .cornerRadius(10)
+        }
+    }
+}
+
+struct AutomaticQRView_Previews: PreviewProvider {
+    static var previews: some View {
+        AutomaticQRView()
+    }
+}
