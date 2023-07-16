@@ -20,6 +20,7 @@ class AutomaticQRViewModel: ObservableObject {
     private var timer: Timer?
     
     init() {
+        generateQRCode(name: "Leonardo Wijaya", email: "leonardo.wijaya003@binus.ac.id")
         startTimer()
     }
     
@@ -42,6 +43,7 @@ class AutomaticQRViewModel: ObservableObject {
         coreLocationVM.locationManager.requestLocation()
         guard let data = generateJSONData(name: name, email: email) else { return }
         filter.message = Data(data)
+        filter.correctionLevel = "H"
         
         if let outputImage = filter.outputImage {
             if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {

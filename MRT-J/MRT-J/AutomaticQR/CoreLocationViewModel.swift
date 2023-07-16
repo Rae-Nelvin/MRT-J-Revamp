@@ -23,22 +23,19 @@ class CoreLocationViewModel: NSObject, ObservableObject, CLLocationManagerDelega
         switch manager.authorizationStatus {
         case .authorizedWhenInUse:  // Location services are available.
             // Insert code here of what should happen when Location services are authorized
-            print("Authorized")
             authorizationStatus = .authorizedWhenInUse
             break
             
+            // Location services currently unavailable.
         case .restricted:
-            print("Restricted")
             authorizationStatus = .restricted
             
-        case .denied:  // Location services currently unavailable.
+        case .denied:
             // Insert code here of what should happen when Location services are NOT authorized
-            print("Denied")
             authorizationStatus = .denied
             break
             
         case .notDetermined:        // Authorization not determined yet.
-            print("Not Determined")
             manager.requestWhenInUseAuthorization()
             authorizationStatus = .notDetermined
             break

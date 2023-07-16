@@ -26,12 +26,11 @@ struct AutomaticQRView: View {
                         Spacer()
                     Image(uiImage: automaticQRVM.qrCodeImage ?? UIImage())
                         .resizable()
-                        .scaledToFit()
                         .frame(width: 270, height: 285)
                     Spacer()
                     HStack {
                         Spacer()
-                        Text("Reset in 30s")
+                        Text("Refresh in 30s")
                             .font(.system(size: 17, weight: .semibold))
                             .foregroundColor(.white)
                         Spacer()
