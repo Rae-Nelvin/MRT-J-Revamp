@@ -16,6 +16,8 @@
 		15CD927A2A62DB3A00B4DCA1 /* HexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92792A62DB3A00B4DCA1 /* HexColor.swift */; };
 		15CD927C2A62EEA300B4DCA1 /* CoreLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD927B2A62EEA300B4DCA1 /* CoreLocationViewModel.swift */; };
 		15CD927E2A651FFF00B4DCA1 /* ImageResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD927D2A651FFF00B4DCA1 /* ImageResizer.swift */; };
+		15CD92812A65236A00B4DCA1 /* GeolocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92802A65236A00B4DCA1 /* GeolocationView.swift */; };
+		15CD92832A65237400B4DCA1 /* GeolocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92822A65237400B4DCA1 /* GeolocationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		15CD92792A62DB3A00B4DCA1 /* HexColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColor.swift; sourceTree = "<group>"; };
 		15CD927B2A62EEA300B4DCA1 /* CoreLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationViewModel.swift; sourceTree = "<group>"; };
 		15CD927D2A651FFF00B4DCA1 /* ImageResizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResizer.swift; sourceTree = "<group>"; };
+		15CD92802A65236A00B4DCA1 /* GeolocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeolocationView.swift; sourceTree = "<group>"; };
+		15CD92822A65237400B4DCA1 /* GeolocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeolocationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 				1555BF2D2A62D99600BCD227 /* AutomaticQRView.swift */,
 				1555BF2F2A62D9A000BCD227 /* AutomaticQRViewModel.swift */,
 				15CD927B2A62EEA300B4DCA1 /* CoreLocationViewModel.swift */,
+				15CD927F2A65235300B4DCA1 /* Geolocation */,
 			);
 			path = AutomaticQR;
 			sourceTree = "<group>";
@@ -96,6 +101,15 @@
 				15CD927D2A651FFF00B4DCA1 /* ImageResizer.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		15CD927F2A65235300B4DCA1 /* Geolocation */ = {
+			isa = PBXGroup;
+			children = (
+				15CD92802A65236A00B4DCA1 /* GeolocationView.swift */,
+				15CD92822A65237400B4DCA1 /* GeolocationViewModel.swift */,
+			);
+			path = Geolocation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,8 +187,10 @@
 				15CD927E2A651FFF00B4DCA1 /* ImageResizer.swift in Sources */,
 				1555BF1D2A61466100BCD227 /* MRT_JApp.swift in Sources */,
 				15CD927A2A62DB3A00B4DCA1 /* HexColor.swift in Sources */,
+				15CD92832A65237400B4DCA1 /* GeolocationViewModel.swift in Sources */,
 				1555BF2E2A62D99600BCD227 /* AutomaticQRView.swift in Sources */,
 				1555BF302A62D9A000BCD227 /* AutomaticQRViewModel.swift in Sources */,
+				15CD92812A65236A00B4DCA1 /* GeolocationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

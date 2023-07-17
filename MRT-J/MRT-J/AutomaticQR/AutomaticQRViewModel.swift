@@ -21,6 +21,7 @@ class AutomaticQRViewModel: ObservableObject {
     private var timer: Timer?
     
     init() {
+        coreLocationVM.locationManager.requestLocation()
         generateQRCode(name: "Leonardo Wijaya", email: "leonardo.wijaya003@binus.ac.id")
         startTimer()
     }
@@ -41,7 +42,6 @@ class AutomaticQRViewModel: ObservableObject {
     }
     
     func generateQRCode(name: String, email: String) {
-        coreLocationVM.locationManager.requestLocation()
         guard let data = generateJSONData(name: name, email: email) else { return }
         filter.message = Data(data)
         filter.correctionLevel = "H"
