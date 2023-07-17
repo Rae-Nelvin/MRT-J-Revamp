@@ -44,9 +44,6 @@ class CoreLocationViewModel: NSObject, ObservableObject, CLLocationManagerDelega
             break
         }
     }
-    
-    
-    
 }
 
 extension CoreLocationViewModel {

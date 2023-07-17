@@ -17,6 +17,7 @@ class AutomaticQRViewModel: ObservableObject {
     
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
+    
     private var timer: Timer?
     
     init() {
@@ -44,14 +45,17 @@ class AutomaticQRViewModel: ObservableObject {
         guard let data = generateJSONData(name: name, email: email) else { return }
         filter.message = Data(data)
         filter.correctionLevel = "H"
-        
+
         if let outputImage = filter.outputImage {
             if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
-                qrCodeImage = UIImage(cgImage: cgimg)
+                let scale = UIScreen.main.scale
+                let resizedImage = UIImage(cgImage: cgimg, scale: scale, orientation: .up)
+                let resizedQRImage = resizedImage.resizeImage(resizedImage, targetSize: CGSize(width: 200, height: 200))
+                qrCodeImage = resizedQRImage
             }
         }
     }
-    
+
     private func generateJSONData(name: String, email: String) -> Data? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -73,4 +77,5 @@ class AutomaticQRViewModel: ObservableObject {
             return nil
         }
     }
+    
 }
