@@ -11,12 +11,16 @@ import SwiftUI
 
 class GeolocationViewModel: ObservableObject {
     @Published var streetName: String?
-    
     @Published var coreLocationVM = CoreLocationViewModel()
+    @Published var closestDistances: Double?
+    @Published var closestStationName: String?
+    
     private let geocoder = CLGeocoder()
+    private let stations: [Station] = stationLists.lists
     
     init() {
         coreLocationVM.locationManager.requestLocation()
+        calculateClosestDistance()
     }
     
     func performReverseGeocoding() {
@@ -37,6 +41,21 @@ class GeolocationViewModel: ObservableObject {
         let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         
         return Map(coordinateRegion: .constant(region))
+    }
+    
+    func calculateClosestDistance() {
+        let closestStation = stations.min { (station1, station2) -> Bool in
+            let location1 = CLLocation(latitude: station1.latitude, longitude: station1.longitude)
+            let location2 = CLLocation(latitude: station2.latitude, longitude: station2.longitude)
+            return coreLocationVM.locationManager.location?.distance(from: location1) ?? 0.0 < coreLocationVM.locationManager.location?.distance(from: location2) ?? 0.0
+        }
+        
+        if let closestStation = closestStation {
+            let closestLocation = CLLocation(latitude: closestStation.latitude, longitude: closestStation.longitude)
+            let distance = (coreLocationVM.locationManager.location?.distance(from: closestLocation) ?? 0.0) / 1000.0
+            closestDistances = distance
+            closestStationName = closestStation.name
+        }
     }
     
 }

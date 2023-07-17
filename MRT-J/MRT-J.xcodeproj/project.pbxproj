@@ -18,6 +18,7 @@
 		15CD927E2A651FFF00B4DCA1 /* ImageResizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD927D2A651FFF00B4DCA1 /* ImageResizer.swift */; };
 		15CD92812A65236A00B4DCA1 /* GeolocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92802A65236A00B4DCA1 /* GeolocationView.swift */; };
 		15CD92832A65237400B4DCA1 /* GeolocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92822A65237400B4DCA1 /* GeolocationViewModel.swift */; };
+		15CD92852A65305B00B4DCA1 /* StationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92842A65305B00B4DCA1 /* StationModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		15CD927D2A651FFF00B4DCA1 /* ImageResizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResizer.swift; sourceTree = "<group>"; };
 		15CD92802A65236A00B4DCA1 /* GeolocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeolocationView.swift; sourceTree = "<group>"; };
 		15CD92822A65237400B4DCA1 /* GeolocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeolocationViewModel.swift; sourceTree = "<group>"; };
+		15CD92842A65305B00B4DCA1 /* StationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 			children = (
 				15CD92802A65236A00B4DCA1 /* GeolocationView.swift */,
 				15CD92822A65237400B4DCA1 /* GeolocationViewModel.swift */,
+				15CD92842A65305B00B4DCA1 /* StationModels.swift */,
 			);
 			path = Geolocation;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15CD92852A65305B00B4DCA1 /* StationModels.swift in Sources */,
 				15CD927C2A62EEA300B4DCA1 /* CoreLocationViewModel.swift in Sources */,
 				1555BF1F2A61466100BCD227 /* ContentView.swift in Sources */,
 				15CD927E2A651FFF00B4DCA1 /* ImageResizer.swift in Sources */,

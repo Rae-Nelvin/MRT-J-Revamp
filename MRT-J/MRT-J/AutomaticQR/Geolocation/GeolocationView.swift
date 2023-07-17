@@ -12,21 +12,28 @@ struct GeolocationView: View {
     
     var body: some View {
         VStack {
-            Text(geolocationVM.streetName ?? "Not detected")
-                .font(.system(size: 40, weight: .bold))
-                .foregroundColor(.red)
-//            if let latitude = geolocationVM.coreLocationVM.latitude, let longitude = geolocationVM.coreLocationVM.longitude {
-//                geolocationVM.displayMap()
-//                    .frame(height: 200)
-//                    .cornerRadius(10)
-//                    .padding()
-//            } else {
-//                Text("No location data available")
-//                    .font(.system(size: 24, weight: .bold))
-//                    .foregroundColor(.red)
-//            }
-            Text("You are here!")
-                .font(.system(size: 24, weight: .bold))
+            if let closestStationName = geolocationVM.closestStationName {
+                Text("Closest Distance: \(String(format: "%.2f", geolocationVM.closestDistances ?? 0.0)) km")
+                    .font(.system(size: 24, weight: .bold))
+                Text("Closest Station: \(closestStationName)")
+                    .font(.system(size: 24, weight: .bold))
+            } else {
+                Text("No station available")
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(.red)
+            }
+            //            if let latitude = geolocationVM.coreLocationVM.latitude, let longitude = geolocationVM.coreLocationVM.longitude {
+            //                geolocationVM.displayMap()
+            //                    .frame(height: 200)
+            //                    .cornerRadius(10)
+            //                    .padding()
+            //            } else {
+            //                Text("No location data available")
+            //                    .font(.system(size: 24, weight: .bold))
+            //                    .foregroundColor(.red)
+            //            }
+//            Text("You are here!")
+//                .font(.system(size: 24, weight: .bold))
         }
         .onAppear() {
             geolocationVM.performReverseGeocoding()
