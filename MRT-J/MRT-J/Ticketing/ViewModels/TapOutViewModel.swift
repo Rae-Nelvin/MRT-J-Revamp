@@ -10,9 +10,12 @@ import CoreLocation
 
 class TapOutViewModel: TicketingViewModel {
     
-    override init() {
+    private var tvm: TicketingViewModel
+    
+    init(tvm: TicketingViewModel) {
+        self.tvm = tvm
         super.init()
-        clvm.locationManager.requestLocation()
+        tvm.clvm.locationManager.requestLocation()
         generateDataForQRCode(name: super.name, email: super.email)
     }
     
@@ -20,12 +23,12 @@ class TapOutViewModel: TicketingViewModel {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let currentTime = dateFormatter.string(from: Date())
-        let latitude = super.clvm.location?.coordinate.latitude.description
-        let longitude = super.clvm.location?.coordinate.latitude.description
+        let latitude = tvm.clvm.location?.coordinate.latitude.description
+        let longitude = tvm.clvm.location?.coordinate.latitude.description
         let ticket = Ticket(name: name, email: email, currentTime: currentTime, latitude: latitude ?? "nil", longitude: longitude ?? "nil")
-        super.ticketsAppend(ticket: ticket)
+        tvm.ticketsAppend(ticket: ticket)
         guard let jsonData = generateJSONData(ticket: ticket) else { return }
-        super.qrCodeImage = super.aqrvm.generateQRCode(apiEndpoint: "https://3691-103-154-141-89.ngrok-free.app/api/post/ticket/", requestData: jsonData)
+        tvm.qrCodeImage = tvm.aqrvm.generateQRCode(apiEndpoint: "https://3691-103-154-141-89.ngrok-free.app/api/post/ticket/", requestData: jsonData)
     }
     
     private func generateJSONData(ticket: Ticket) -> Data? {

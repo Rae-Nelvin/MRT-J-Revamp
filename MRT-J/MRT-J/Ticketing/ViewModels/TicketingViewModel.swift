@@ -25,18 +25,19 @@ class TicketingViewModel: ObservableObject {
     init() {
 //        checkTicket()
         startTimer()
+        
     }
     
     deinit {
         stopTimer()
     }
     
-    private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
             if self?.statusTap == true {
-                let _ = TapOutViewModel()
+                let _ = TapOutViewModel(tvm: self ?? TicketingViewModel())
             } else {
-                let _ = TapInViewModel()
+                let _ = TapInViewModel(tvm: self ?? TicketingViewModel())
             }
         }
     }
@@ -52,32 +53,29 @@ class TicketingViewModel: ObservableObject {
                 for ticket in self.tickets {
                     if let tapInID = UUID(uuidString: data["tap_in_id"] as! String), ticket.id == tapInID {
                         self.statusTap = true
-                        print(1)
-//                        let _ = TapInViewModel()
-//                        break
+                        let _ = TapOutViewModel(tvm: self)
+                        break
                     } else {
                         self.statusTap = false
-                        print(2)
-//                        let _ = TapOutViewModel()
-//                        break
+                        let _ = TapInViewModel(tvm: self)
+                        break
                     }
                 }
                 self.statusTap = false
-                print(3)
-//                let _ = TapOutViewModel()
+                let _ = TapInViewModel(tvm: self)
             } else {
                 self.statusTap = false
-                print(4)
-                TapOutViewModel()
+                let _ = TapInViewModel(tvm: self)
             }
         }
     }
     
     func ticketsAppend(ticket: Ticket) {
-        if self.tickets.count < 2 {
+        if self.tickets.count < 10 {
             self.tickets.append(ticket)
+            print(ticket)
         } else {
-            self.tickets.remove(at: 0)
+            self.tickets.removeFirst()
         }
     }
 }
