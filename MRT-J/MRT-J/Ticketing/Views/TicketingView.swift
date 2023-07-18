@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct AutomaticQRView: View {
-    @ObservedObject var automaticQRVM: AutomaticQRViewModel = AutomaticQRViewModel()
+struct TicketingView: View {
+    @ObservedObject var tvm: TicketingViewModel = TicketingViewModel()
     
     var body: some View {
         VStack {
@@ -24,7 +24,7 @@ struct AutomaticQRView: View {
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.white)
                         Spacer()
-                    Image(uiImage: automaticQRVM.qrCodeImage ?? UIImage())
+                    Image(uiImage: tvm.qrCodeImage ?? UIImage())
                         .resizable()
                         .frame(width: 270, height: 285)
                     Spacer()
@@ -46,6 +46,6 @@ struct AutomaticQRView: View {
 
 struct AutomaticQRView_Previews: PreviewProvider {
     static var previews: some View {
-        AutomaticQRView()
+        TicketingView()
     }
 }

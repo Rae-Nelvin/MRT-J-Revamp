@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TicketingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,5 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 // Route::resources(['tickets' => TicketingController::class]);
 Route::get('tickets', [TicketingController::class, 'index']);
-Route::post('tickets', [TicketingController::class, 'store']);
-Route::put('tickets', [TicketingController::class, 'update']);
+// Route::post('tickets', [TicketingController::class, 'store']);
+Route::get('post/ticket/{jsonData}', [TicketingController::class, 'store']);
+// Route::put('tickets', [TicketingController::class, 'update']);
+Route::get('put/ticket/{jsonData}', [TicketingController::class, 'update']);
+Route::get('ticket/{name}/{email}', [TicketingController::class, 'show']);
+Route::get('notifications', [NotificationController::class, 'index']);
+Route::post('notifications', [NotificationController::class, 'store']);
+Route::get('notification/{name}/{email}', [NotificationController::class, 'show']);
+Route::delete('notification/{id}', [NotificationController::class, 'delete']);

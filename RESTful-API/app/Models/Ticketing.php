@@ -15,10 +15,12 @@ class Ticketing extends Model
     protected $fillable = [
         'name',
         'email',
+        'tap_in_id',
         'tap_in_time',
         'tap_in_latitude',
         'tap_in_longitude',
         'tap_in_station',
+        'tap_out_id',
         'tap_out_time',
         'tap_out_latitude',
         'tap_out_longitude',

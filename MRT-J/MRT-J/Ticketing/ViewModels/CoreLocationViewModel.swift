@@ -11,8 +11,7 @@ import CoreLocation
 class CoreLocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     @Published var authorizationStatus: CLAuthorizationStatus?
-    @Published var latitude: Double?
-    @Published var longitude: Double?
+    @Published var location: CLLocation?
     
     var locationManager = CLLocationManager()
     
@@ -28,8 +27,7 @@ class CoreLocationViewModel: NSObject, ObservableObject, CLLocationManagerDelega
         case .authorizedWhenInUse:  // Location services are available.
             // Insert code here of what should happen when Location services are authorized
             authorizationStatus = .authorizedWhenInUse
-            latitude = locationManager.location?.coordinate.latitude
-            longitude = locationManager.location?.coordinate.longitude
+            self.location = locationManager.location
             break
             
             // Location services currently unavailable.
