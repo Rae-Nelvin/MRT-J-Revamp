@@ -26,12 +26,17 @@ class TicketingViewModel: ObservableObject {
             switch result {
             case .success(let ticket):
                 if let ticket = ticket {
-                    self.tpvm = TapOutViewModel(name: self.name, email: self.email, ticket: ticket)
+                    DispatchQueue.main.async {
+                        self.tpvm = TapOutViewModel(name: self.name, email: self.email, ticket: ticket)
+                    }
+                    print("Tap Out")
                 } else {
                     DispatchQueue.main.async {
                         self.tpvm = TapInViewModel(name: self.name, email: self.email)
-                    } 
+                    }
+                    print("Tap In")
                 }
+                self.objectWillChange.send()
             case .failure(let error):
                 print(error.localizedDescription)
                 return

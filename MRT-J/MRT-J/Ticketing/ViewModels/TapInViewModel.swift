@@ -28,7 +28,7 @@ class TapInViewModel: TappingViewModel {
         let longitude = super.clvm.location?.coordinate.latitude.description
         let ticket = Ticket(name: super.name, email: super.email, tap_in_id: UUID().uuidString, tap_in_time: currentTime, tap_in_latitude: latitude ?? "nil", tap_in_longitude: longitude ?? "nil", tap_in_station: "DummyStation")
         guard let jsonData = generateJSONData(ticket: ticket) else { return }
-        super.qrCodeImage = super.qrg.generateQRCode(apiEndpoint: "https://3691-103-154-141-89.ngrok-free.app/api/put/ticket/", requestData: jsonData)
+        super.qrCodeImage = super.qrg.generateQRCode(apiEndpoint: "https://3691-103-154-141-89.ngrok-free.app/api/post/ticket/", requestData: jsonData)
     }
     
     private func generateJSONData(ticket: Ticket) -> Data? {
@@ -45,8 +45,9 @@ class TapInViewModel: TappingViewModel {
 
 extension TapInViewModel: TappingProtocol {
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
             self?.generateDataForQRCode(name: self?.name ?? "nil", email: self?.email ?? "nil")
+            self?.objectWillChange.send()
         }
     }
 }

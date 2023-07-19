@@ -19,13 +19,13 @@ class CreateTicketingsTable extends Migration
             $table->string('email');
             $table->string('tap_in_id');
             $table->dateTime('tap_in_time');
-            $table->double('tap_in_latitude');
-            $table->double('tap_in_longitude');
+            $table->string('tap_in_latitude');
+            $table->string('tap_in_longitude');
             $table->string('tap_in_station');
             $table->string('tap_out_id')->nullable();
             $table->dateTime('tap_out_time')->nullable();
-            $table->double('tap_out_latitude')->nullable();
-            $table->double('tap_out_longitude')->nullable();
+            $table->string('tap_out_latitude')->nullable();
+            $table->string('tap_out_longitude')->nullable();
             $table->string('tap_out_station')->nullable();
         });
     }

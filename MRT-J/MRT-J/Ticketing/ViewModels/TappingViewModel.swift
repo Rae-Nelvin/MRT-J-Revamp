@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class TappingViewModel {
+class TappingViewModel: ObservableObject {
     @Published var statusTap: Bool = false
     @Published var qrCodeImage: UIImage?
     

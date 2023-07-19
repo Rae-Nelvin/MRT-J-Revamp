@@ -25,6 +25,7 @@
 		15CD92952A66F28700B4DCA1 /* TicketingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92942A66F28700B4DCA1 /* TicketingViewModel.swift */; };
 		15CD92972A66F85000B4DCA1 /* TapOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92962A66F85000B4DCA1 /* TapOutViewModel.swift */; };
 		15CD92992A6802ED00B4DCA1 /* TappingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92982A6802ED00B4DCA1 /* TappingViewModel.swift */; };
+		15CD929B2A682E3A00B4DCA1 /* TicketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD929A2A682E3A00B4DCA1 /* TicketResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		15CD92942A66F28700B4DCA1 /* TicketingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketingViewModel.swift; sourceTree = "<group>"; };
 		15CD92962A66F85000B4DCA1 /* TapOutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapOutViewModel.swift; sourceTree = "<group>"; };
 		15CD92982A6802ED00B4DCA1 /* TappingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappingViewModel.swift; sourceTree = "<group>"; };
+		15CD929A2A682E3A00B4DCA1 /* TicketResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				15CD92882A6666AD00B4DCA1 /* TicketModel.swift */,
+				15CD929A2A682E3A00B4DCA1 /* TicketResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15CD929B2A682E3A00B4DCA1 /* TicketResponse.swift in Sources */,
 				15CD92992A6802ED00B4DCA1 /* TappingViewModel.swift in Sources */,
 				15CD92852A65305B00B4DCA1 /* StationModels.swift in Sources */,
 				15CD927C2A62EEA300B4DCA1 /* CoreLocationViewModel.swift in Sources */,

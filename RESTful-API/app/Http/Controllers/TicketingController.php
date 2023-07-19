@@ -38,8 +38,8 @@ class TicketingController extends Controller
             'email' => 'required|email|string',
             'tap_in_id' => 'required|string|unique:ticketings,tap_in_id',
             'tap_in_time' => 'required|date',
-            'tap_in_latitude' => 'required',
-            'tap_in_longitude' => 'required',
+            'tap_in_latitude' => 'required|string',
+            'tap_in_longitude' => 'required|string',
             'tap_in_station' => 'required|string'
         ];
 
@@ -93,8 +93,8 @@ class TicketingController extends Controller
             'email' => 'required|string|email',
             'tap_out_id' => 'required|string|unique:ticketings,tap_out_id',
             'tap_out_time' => 'required|date',
-            'tap_out_latitude' => 'required',
-            'tap_out_longitude' => 'required',
+            'tap_out_latitude' => 'required|string',
+            'tap_out_longitude' => 'required|string',
             'tap_out_station' => 'required|string',
         ];
 
@@ -120,15 +120,19 @@ class TicketingController extends Controller
             ], 404);
         }
 
-        // Move it to iOS
-        if (Carbon::parse($data->tap_out_time)->diffInMinutes(Carbon::parse($ticket->tap_in_time)) < 5 || $data->tap_out_latitude == $ticket->tap_in_latitude || $data->tap_out_longitude == $ticket->tap_in_longitude || $data->tap_out_station == $ticket->tap_in_station) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'You can\'t Tap Out in The Same Location'
-            ], 406);
-        }
+        // To check if they tap out in the same location. Disabled for testing
+        // if (Carbon::parse($data['tap_out_time'])->diffInMinutes(Carbon::parse($ticket->tap_in_time)) < 5 || $data['tap_out_latitude'] == $ticket->tap_in_latitude || $data['tap_out_longitude'] == $ticket->tap_in_longitude || $data['tap_out_station'] == $ticket->tap_in_station) {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => 'You can\'t Tap Out in The Same Location'
+        //     ], 406);
+        // }
 
-        $ticket->fill($data);
+        $ticket->tap_out_id = $data['tap_out_id'];
+        $ticket->tap_out_time = $data['tap_out_time'];
+        $ticket->tap_out_latitude = $data['tap_out_latitude'];
+        $ticket->tap_out_longitude = $data['tap_out_longitude'];
+        $ticket->tap_out_station = $data['tap_out_station'];
         $ticket->save();
         return response()->json(['status' => 'success', 'data' => $ticket], 201);
     }

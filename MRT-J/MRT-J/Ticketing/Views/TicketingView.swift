@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TicketingView: View {
     @ObservedObject var tvm: TicketingViewModel = TicketingViewModel()
+    @State private var qrCodeImage: UIImage? = nil
     
     var body: some View {
         VStack {
@@ -24,7 +25,7 @@ struct TicketingView: View {
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.white)
                         Spacer()
-                    Image(uiImage: tvm.tpvm?.qrCodeImage ?? UIImage())
+                    Image(uiImage: qrCodeImage ?? UIImage())
                         .resizable()
                         .frame(width: 270, height: 285)
                     Spacer()
@@ -40,6 +41,9 @@ struct TicketingView: View {
             }
             .frame(width: 337, height: 441)
             .cornerRadius(10)
+        }
+        .onReceive(tvm.tpvm?.objectWillChange ?? tvm.objectWillChange) { _ in
+            qrCodeImage = tvm.tpvm?.qrCodeImage
         }
     }
 }

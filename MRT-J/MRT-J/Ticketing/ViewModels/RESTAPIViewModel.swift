@@ -43,7 +43,8 @@ class RESTAPIViewModel: ObservableObject {
             
             do {
                 let decoder = JSONDecoder()
-                let ticket = try decoder.decode(Ticket.self, from: data)
+                let ticketResponse = try decoder.decode(TicketResponse.self, from: data)
+                let ticket = ticketResponse.data
                 completion(.success(ticket))
             } catch {
                 completion(.success(nil))

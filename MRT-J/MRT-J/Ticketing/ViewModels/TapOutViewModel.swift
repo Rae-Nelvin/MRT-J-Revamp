@@ -35,7 +35,7 @@ class TapOutViewModel: TappingViewModel {
         ticket.tap_out_longitude = longitude
         ticket.tap_out_station = "DummyStation2"
         guard let jsonData = generateJSONData(ticket: ticket) else { return }
-        super.qrCodeImage = super.qrg.generateQRCode(apiEndpoint: "https://3691-103-154-141-89.ngrok-free.app/api/post/ticket/", requestData: jsonData)
+        super.qrCodeImage = super.qrg.generateQRCode(apiEndpoint: "https://3691-103-154-141-89.ngrok-free.app/api/put/ticket/", requestData: jsonData)
     }
     
     private func generateJSONData(ticket: Ticket) -> Data? {
@@ -51,8 +51,9 @@ class TapOutViewModel: TappingViewModel {
 
 extension TapOutViewModel: TappingProtocol {
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
             self?.generateDataForQRCode(name: self?.name ?? "nil", email: self?.email ?? "nil")
+            self?.objectWillChange.send()
         }
     }
 }
