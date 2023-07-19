@@ -24,7 +24,7 @@ struct TicketingView: View {
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(.white)
                         Spacer()
-                    Image(uiImage: tvm.qrCodeImage ?? UIImage())
+                    Image(uiImage: tvm.tpvm?.qrCodeImage ?? UIImage())
                         .resizable()
                         .frame(width: 270, height: 285)
                     Spacer()

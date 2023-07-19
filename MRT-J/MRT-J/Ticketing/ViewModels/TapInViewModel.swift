@@ -8,42 +8,32 @@
 import Foundation
 import CoreLocation
 
-class TapInViewModel: TicketingViewModel {
+class TapInViewModel: TappingViewModel {
     
-    private var tvm: TicketingViewModel
-    
-    init(tvm: TicketingViewModel) {
-        self.tvm = tvm
-        super.init()
-        tvm.clvm.locationManager.requestLocation()
+    override init(name: String, email: String) {
+        super.init(name: name, email: email)
         generateDataForQRCode(name: super.name, email: super.email)
+        startTimer()
+    }
+    
+    deinit {
+        super.stopTimer()
     }
     
     func generateDataForQRCode(name: String, email: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let currentTime = dateFormatter.string(from: Date())
-        let latitude = tvm.clvm.location?.coordinate.latitude.description
-        let longitude = tvm.clvm.location?.coordinate.latitude.description
-        let ticket = Ticket(name: name, email: email, currentTime: currentTime, latitude: latitude ?? "nil", longitude: longitude ?? "nil")
-        tvm.ticketsAppend(ticket: ticket)
+        let latitude = super.clvm.location?.coordinate.latitude.description
+        let longitude = super.clvm.location?.coordinate.latitude.description
+        let ticket = Ticket(name: super.name, email: super.email, tap_in_id: UUID().uuidString, tap_in_time: currentTime, tap_in_latitude: latitude ?? "nil", tap_in_longitude: longitude ?? "nil", tap_in_station: "DummyStation")
         guard let jsonData = generateJSONData(ticket: ticket) else { return }
-        tvm.qrCodeImage = super.aqrvm.generateQRCode(apiEndpoint: "https://3691-103-154-141-89.ngrok-free.app/api/put/ticket/", requestData: jsonData)
+        super.qrCodeImage = super.qrg.generateQRCode(apiEndpoint: "https://3691-103-154-141-89.ngrok-free.app/api/put/ticket/", requestData: jsonData)
     }
     
     private func generateJSONData(ticket: Ticket) -> Data? {
-        let jsonDict: [String: Any] = [
-            "name": ticket.name,
-            "email": ticket.email,
-            "tap_in_id": ticket.id.uuidString,
-            "tap_in_time": ticket.currentTime,
-            "tap_in_latitude": ticket.latitude,
-            "tap_in_longitude": ticket.longitude,
-            "tap_in_station": "DummyStation"
-        ]
-        
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: jsonDict)
+            let jsonData = try JSONEncoder().encode(ticket)
             return jsonData
         } catch {
             print("Error generating JSON data: \(error.localizedDescription)")
@@ -51,4 +41,12 @@ class TapInViewModel: TicketingViewModel {
         }
     }
     
+}
+
+extension TapInViewModel: TappingProtocol {
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] _ in
+            self?.generateDataForQRCode(name: self?.name ?? "nil", email: self?.email ?? "nil")
+        }
+    }
 }

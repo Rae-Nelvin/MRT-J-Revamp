@@ -7,40 +7,49 @@
 
 import Foundation
 
+enum APIError: Error {
+    case invalidURL
+    case noData
+    case decodingFailed
+    case other(Error)
+}
+
 class RESTAPIViewModel: ObservableObject {
     
-    func getTicket(name: String, email: String, completion: @escaping ([String : Any]?) -> Void ) {
-        
-        guard let url = URL(string: "https://3691-103-154-141-89.ngrok-free.app/api/ticket/\(name)/\(email)") else {
-            completion(nil)
+    func getTicket(name: String, email: String, completion: @escaping (Result<Ticket?, Error>) -> Void) {
+        guard let encodedName = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let encodedEmail = email.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            completion(.failure(APIError.invalidURL))
+            return
+        }
+
+        let urlString = "https://3691-103-154-141-89.ngrok-free.app/api/ticket/\(encodedName)/\(encodedEmail)"
+
+        guard let url = URL(string: urlString) else {
+            completion(.failure(APIError.invalidURL))
             return
         }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
-                print("Error: \(error)")
-                completion(nil)
+                completion(.failure(error))
                 return
             }
             
             guard let data = data else {
-                completion(nil)
+                completion(.failure(APIError.noData))
                 return
             }
             
             do {
-                if let jsonDict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                    completion(jsonDict)
-                } else {
-                    completion(nil)
-                }
+                let decoder = JSONDecoder()
+                let ticket = try decoder.decode(Ticket.self, from: data)
+                completion(.success(ticket))
             } catch {
-                print("Error decoding JSON data: \(error)")
-                completion(nil)
+                completion(.success(nil))
             }
-            
         }
-        completion(nil)
-        return
+        task.resume()
     }
+    
 }
