@@ -23,7 +23,7 @@ class TapOutViewModel: TappingViewModel {
         super.stopTimer()
     }
     
-    func generateDataForQRCode(name: String, email: String) {
+    override func generateDataForQRCode(name: String, email: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let currentTime = dateFormatter.string(from: Date())
@@ -38,19 +38,7 @@ class TapOutViewModel: TappingViewModel {
         super.qrCodeImage = super.qrg.generateQRCode(apiEndpoint: "https://3691-103-154-141-89.ngrok-free.app/api/put/ticket/", requestData: jsonData)
     }
     
-    private func generateJSONData(ticket: Ticket) -> Data? {
-        do {
-            let jsonData = try JSONEncoder().encode(ticket)
-            return jsonData
-        } catch {
-            print("Error generating JSON data: \(error.localizedDescription)")
-            return nil
-        }
-    }
-}
-
-extension TapOutViewModel: TappingProtocol {
-    func startTimer() {
+    override func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
             self?.generateDataForQRCode(name: self?.name ?? "nil", email: self?.email ?? "nil")
             self?.objectWillChange.send()

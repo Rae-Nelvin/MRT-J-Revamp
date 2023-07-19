@@ -26,12 +26,22 @@ class TappingViewModel: ObservableObject {
         clvm.locationManager.requestLocation()
     }
     
+    func generateDataForQRCode(name: String, email: String) {}
+    
+    func generateJSONData(ticket: Ticket) -> Data? {
+        do {
+            let jsonData = try JSONEncoder().encode(ticket)
+            return jsonData
+        } catch {
+            print("Error generating JSON data: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
+    func startTimer() {}
+    
     func stopTimer() {
         timer?.invalidate()
         timer = nil
     }
-}
-
-protocol TappingProtocol {
-    func startTimer()
 }
