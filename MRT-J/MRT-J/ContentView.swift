@@ -11,8 +11,7 @@ struct ContentView: View {
     @State var selection = 0
     var body: some View {
         VStack{
-            Spacer()
-            CustomTabBar(selection: $selection)
+            
         }
     }
 }
