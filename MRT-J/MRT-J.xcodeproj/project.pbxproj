@@ -15,6 +15,10 @@
 		E7F8801F2A65183F006308B5 /* MainMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8801E2A65183F006308B5 /* MainMenuModel.swift */; };
 		E7F880212A65184F006308B5 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F880202A65184F006308B5 /* MainMenuView.swift */; };
 		E7F8802C2A681E27006308B5 /* PaymentSuccessPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8802B2A681E27006308B5 /* PaymentSuccessPage.swift */; };
+		E7F8802E2A6851FB006308B5 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8802D2A6851FA006308B5 /* HistoryView.swift */; };
+		E7F880312A685351006308B5 /* HistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F880302A685351006308B5 /* HistoryModel.swift */; };
+		E7F880352A69B9CF006308B5 /* TopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F880342A69B9CF006308B5 /* TopUpView.swift */; };
+		E7F880382A69BC0B006308B5 /* TopUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F880372A69BC0B006308B5 /* TopUpModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +31,10 @@
 		E7F8801E2A65183F006308B5 /* MainMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuModel.swift; sourceTree = "<group>"; };
 		E7F880202A65184F006308B5 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		E7F8802B2A681E27006308B5 /* PaymentSuccessPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccessPage.swift; sourceTree = "<group>"; };
+		E7F8802D2A6851FA006308B5 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		E7F880302A685351006308B5 /* HistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryModel.swift; sourceTree = "<group>"; };
+		E7F880342A69B9CF006308B5 /* TopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpView.swift; sourceTree = "<group>"; };
+		E7F880372A69BC0B006308B5 /* TopUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUpModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +91,28 @@
 				E7F8801E2A65183F006308B5 /* MainMenuModel.swift */,
 				E7F8801C2A65182A006308B5 /* MainMenuVM.swift */,
 				E7F8802B2A681E27006308B5 /* PaymentSuccessPage.swift */,
+				E7F880362A69BBE9006308B5 /* TopUp */,
+				E7F8802F2A685240006308B5 /* History */,
 			);
 			path = "Main Menu";
+			sourceTree = "<group>";
+		};
+		E7F8802F2A685240006308B5 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				E7F8802D2A6851FA006308B5 /* HistoryView.swift */,
+				E7F880302A685351006308B5 /* HistoryModel.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		E7F880362A69BBE9006308B5 /* TopUp */ = {
+			isa = PBXGroup;
+			children = (
+				E7F880342A69B9CF006308B5 /* TopUpView.swift */,
+				E7F880372A69BC0B006308B5 /* TopUpModel.swift */,
+			);
+			path = TopUp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,9 +185,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7F880312A685351006308B5 /* HistoryModel.swift in Sources */,
+				E7F880352A69B9CF006308B5 /* TopUpView.swift in Sources */,
+				E7F8802E2A6851FB006308B5 /* HistoryView.swift in Sources */,
 				1555BF1F2A61466100BCD227 /* ContentView.swift in Sources */,
 				1555BF1D2A61466100BCD227 /* MRT_JApp.swift in Sources */,
 				E7F880212A65184F006308B5 /* MainMenuView.swift in Sources */,
+				E7F880382A69BC0B006308B5 /* TopUpModel.swift in Sources */,
 				E7F8801F2A65183F006308B5 /* MainMenuModel.swift in Sources */,
 				E7F8801D2A65182A006308B5 /* MainMenuVM.swift in Sources */,
 				E7F8802C2A681E27006308B5 /* PaymentSuccessPage.swift in Sources */,
@@ -291,7 +323,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MRT-J/Preview Content\"";
-				DEVELOPMENT_TEAM = R4FBGZQ29P;
+				DEVELOPMENT_TEAM = SW8Q2MFZT8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -320,7 +352,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MRT-J/Preview Content\"";
-				DEVELOPMENT_TEAM = R4FBGZQ29P;
+				DEVELOPMENT_TEAM = SW8Q2MFZT8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

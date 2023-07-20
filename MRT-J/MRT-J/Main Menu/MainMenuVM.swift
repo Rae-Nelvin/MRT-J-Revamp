@@ -49,8 +49,8 @@ class MainMenuVM: ObservableObject{
     func generateQrBackground(){
         if qrScanIn == true{
             self.scanTitle = "Exit QR Code"
-            self.scanSubtitle =  "Scan the code to end your trip"
-            qrBackground = Color.rgb(39,111,61)
+            self.scanSubtitle =  "Scan the QR code to end your trip"
+            qrBackground = Color.rgb(67,181,74)
             if self.balance < 14000{
                 qrBackground = Color.red
             }
@@ -58,7 +58,7 @@ class MainMenuVM: ObservableObject{
         else{
             self.balance -= 14000
             self.scanTitle = "Entry QR Code"
-            self.scanSubtitle =  "Scan the code to start your trip"
+            self.scanSubtitle =  "Scan the QR code to start your trip"
             qrBackground = Color.rgb(32,95,166)
             self.showPaymentSheet = true
         }
@@ -70,11 +70,20 @@ class MainMenuVM: ObservableObject{
             self.alertMoneyInsufficientIsPresent = true
             qrBackground = Color.red
         }
-        else{
+        else if qrScanIn == true{
             self.alertMoneyInsufficient = false
             self.alertMoneyInsufficientIsPresent = false
-            qrBackground = Color.rgb(39,111,61)
+            qrBackground =  Color.rgb(67,181,74)
         }
+        else if qrScanIn == false{
+            self.alertMoneyInsufficient = false
+            self.alertMoneyInsufficientIsPresent = false
+            qrBackground = Color.rgb(32,95,166)
+        }
+    }
+    
+    func topUpBalance(){
+        self.balance += 20000
     }
     
 }

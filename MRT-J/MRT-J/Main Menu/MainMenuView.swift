@@ -9,7 +9,7 @@ import SwiftUI
 import CoreImage.CIFilterBuiltins
 
 struct MainMenuView: View {
-    @StateObject private var vm = MainMenuVM()
+    @ObservedObject private var vm = MainMenuVM()
     var body: some View {
         NavigationView{
             VStack{
@@ -17,37 +17,50 @@ struct MainMenuView: View {
                     HStack{
                         Image(systemName: "location.fill")
                             .font(.title)
-                        Text("\(vm.currentTrainPosition[0])")
+                            .foregroundColor(Color.white)
+                        Text("\(vm.currentTrainPosition[0]) Station")
                             .bold()
-                            .font(.title)
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
                             .foregroundColor(Color.white)
                     }
                     HStack{
                         VStack(alignment: .leading){
                             Text("Balance")
                                 .foregroundColor(Color.white)
-                                .font(.headline)
+                                .font(.system(size: 15))
+                                .fontWeight(.medium)
+                                .bold()
                             Text("Rp\(vm.balance)")
-                                .font(.title)
+                                .font(.system(size: 25))
+                                .fontWeight(.heavy)
                                 .foregroundColor(Color.white)
                                 .bold()
                             HStack{
-                                Button{
-                                    vm.balance += 100000
-                                    vm.checkBalance()
-                                }label: {
-                                    
-                                    Text("+ Top Up")
-                                        .foregroundColor(Color.black)
-                                    
-                                        .padding(.horizontal, 10)
-                                        .padding(.vertical, 3)
-                                        .background(Color.white)
-                                        .cornerRadius(10)
+                                NavigationLink(destination: TopUpView(vm: vm)){
+                                    HStack{
+                                        Text("+ Top Up")
+                                    }
+                                    .foregroundColor(Color.black)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 3)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
                                 }
-                                Button{
-                                    
-                                }label: {
+//                                Button{
+//                                    vm.balance += 100000
+//                                    vm.checkBalance()
+//                                }label: {
+//
+//                                    Text("+ Top Up")
+//                                        .foregroundColor(Color.black)
+//
+//                                        .padding(.horizontal, 10)
+//                                        .padding(.vertical, 3)
+//                                        .background(Color.white)
+//                                        .cornerRadius(10)
+//                                }
+                                NavigationLink(destination: HistoryView()){
                                     HStack{
                                         Image(systemName: "list.bullet")
                                         Text("History")
@@ -71,37 +84,47 @@ struct MainMenuView: View {
                     HStack{
                         VStack(alignment: .leading){
                             Text("\(vm.scanTitle)")
-                                .bold()
+                                .fontWeight(.bold)
+                                //.bold()
                                 .font(.title2)
+                                .foregroundColor(Color(red:0.05, green:0.1, blue: 0.16))
                                 .multilineTextAlignment(.leading)
+                                
                             
                             Text("\(vm.scanSubtitle)")
+                                .fontWeight(.semibold)
                                 .font(.title3)
+                                .foregroundColor(Color(red:0.05, green:0.1, blue: 0.16))
                                 .multilineTextAlignment(.leading)
                             Divider()
+                                .frame(maxWidth: .infinity)
                                 .overlay(.black)
                         }
+                        .padding(.bottom, 20)
                         Spacer()
                     }
                     ZStack{
                         Image("Doodle")
                             .resizable()
+                            .contrast(2)
                         if vm.showQR == false{
                             Button{
                                 vm.showQR = true
                                 vm.startTimer()
                             }label: {
                                 Text("Show QR Code")
-                                    .bold()
-                                    .foregroundColor(Color.black)
+                                    //.bold()
+                                    .foregroundColor(Color(red:0.05, green:0.1, blue: 0.16))
+                                    .fontWeight(.heavy)
                                     .frame(width: 200, height: 40)
                                     .background(Color.white)
-                                    .cornerRadius(10)
+                                    .cornerRadius(20)
                             }
                         }
                         else{
                             VStack{
                                 Button{
+                                    vm.stopTimer()
                                     if vm.alertMoneyInsufficient == false{
                                         vm.checkBalance()
                                         vm.qrScanIn.toggle()
@@ -114,28 +137,24 @@ struct MainMenuView: View {
                                     Image("\(vm.qrImage)")
                                         .resizable()
                                         .frame(width: 250, height: 250)
+                                        .cornerRadius(10)
                                 }
                                 Text("Code reset in \(vm.timeRemaining)s")
                                     .foregroundColor(Color.white)
                             }
                         }
                     }
-                    .border(Color.black)
-                    .frame(height: 400)
+                    .frame(width: 345, height: 392)
                     .frame(maxWidth: .infinity)
                     .background(vm.qrBackground)
                     .cornerRadius(10)
-                    
-                    
-                    
                     Spacer()
-                    
                 }
                 .padding(20)
                 .ignoresSafeArea()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.white)
-                .cornerRadius(10)
+                .cornerRadius(15)
             }
             .padding(.top, 60)
             .ignoresSafeArea(.all)
@@ -144,7 +163,7 @@ struct MainMenuView: View {
             .alert(isPresented: $vm.alertMoneyInsufficientIsPresent){
                 {
                     Alert(title: Text("Insufficient Balance"),
-                          message: Text("Please top up your account"),
+                          message: Text("Please top up your balance and try again"),
                           dismissButton: .default(Text("OK")))
                 }()
             }
@@ -152,6 +171,7 @@ struct MainMenuView: View {
                 PaymentSuccesPageView()
             }
         }
+        .tint(Color.white)
     }
     
 }
