@@ -25,7 +25,10 @@
 		15CD92952A66F28700B4DCA1 /* TicketingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92942A66F28700B4DCA1 /* TicketingViewModel.swift */; };
 		15CD92972A66F85000B4DCA1 /* TapOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92962A66F85000B4DCA1 /* TapOutViewModel.swift */; };
 		15CD92992A6802ED00B4DCA1 /* TappingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92982A6802ED00B4DCA1 /* TappingViewModel.swift */; };
-		15CD929B2A682E3A00B4DCA1 /* TicketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD929A2A682E3A00B4DCA1 /* TicketResponse.swift */; };
+		15CD929B2A682E3A00B4DCA1 /* TicketResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD929A2A682E3A00B4DCA1 /* TicketResponseModel.swift */; };
+		15CD929F2A69068F00B4DCA1 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD929E2A69068F00B4DCA1 /* NotificationModel.swift */; };
+		15CD92A12A6906A500B4DCA1 /* NotificationResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92A02A6906A500B4DCA1 /* NotificationResponseModel.swift */; };
+		15CD92A42A69081C00B4DCA1 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CD92A32A69081C00B4DCA1 /* NotificationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +51,10 @@
 		15CD92942A66F28700B4DCA1 /* TicketingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketingViewModel.swift; sourceTree = "<group>"; };
 		15CD92962A66F85000B4DCA1 /* TapOutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapOutViewModel.swift; sourceTree = "<group>"; };
 		15CD92982A6802ED00B4DCA1 /* TappingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappingViewModel.swift; sourceTree = "<group>"; };
-		15CD929A2A682E3A00B4DCA1 /* TicketResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketResponse.swift; sourceTree = "<group>"; };
+		15CD929A2A682E3A00B4DCA1 /* TicketResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketResponseModel.swift; sourceTree = "<group>"; };
+		15CD929E2A69068F00B4DCA1 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		15CD92A02A6906A500B4DCA1 /* NotificationResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationResponseModel.swift; sourceTree = "<group>"; };
+		15CD92A32A69081C00B4DCA1 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +88,9 @@
 			isa = PBXGroup;
 			children = (
 				1555BF1C2A61466100BCD227 /* MRT_JApp.swift */,
+				15CD92A52A6908AD00B4DCA1 /* Helpers */,
 				15CD92782A62DB3000B4DCA1 /* Extensions */,
+				15CD929C2A69067600B4DCA1 /* Notification */,
 				1555BF2A2A62D97700BCD227 /* Ticketing */,
 				15CD927F2A65235300B4DCA1 /* Geolocation */,
 				1555BF1E2A61466100BCD227 /* ContentView.swift */,
@@ -115,7 +123,6 @@
 			children = (
 				15CD92792A62DB3A00B4DCA1 /* HexColor.swift */,
 				15CD927D2A651FFF00B4DCA1 /* ImageResizer.swift */,
-				1555BF2F2A62D9A000BCD227 /* QRGenerator.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -142,7 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				15CD92882A6666AD00B4DCA1 /* TicketModel.swift */,
-				15CD929A2A682E3A00B4DCA1 /* TicketResponse.swift */,
+				15CD929A2A682E3A00B4DCA1 /* TicketResponseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,12 +157,10 @@
 		15CD928E2A667A4B00B4DCA1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				15CD927B2A62EEA300B4DCA1 /* CoreLocationViewModel.swift */,
-				15CD928A2A667A2D00B4DCA1 /* RESTAPIViewModel.swift */,
-				15CD92922A66F00D00B4DCA1 /* TapInViewModel.swift */,
 				15CD92942A66F28700B4DCA1 /* TicketingViewModel.swift */,
-				15CD92962A66F85000B4DCA1 /* TapOutViewModel.swift */,
 				15CD92982A6802ED00B4DCA1 /* TappingViewModel.swift */,
+				15CD92962A66F85000B4DCA1 /* TapOutViewModel.swift */,
+				15CD92922A66F00D00B4DCA1 /* TapInViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -179,9 +184,45 @@
 		15CD92912A667A7F00B4DCA1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				15CD927B2A62EEA300B4DCA1 /* CoreLocationViewModel.swift */,
 				15CD92822A65237400B4DCA1 /* GeolocationViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		15CD929C2A69067600B4DCA1 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				15CD929D2A69068500B4DCA1 /* Model */,
+				15CD92A22A69080900B4DCA1 /* ViewModel */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		15CD929D2A69068500B4DCA1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				15CD929E2A69068F00B4DCA1 /* NotificationModel.swift */,
+				15CD92A02A6906A500B4DCA1 /* NotificationResponseModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		15CD92A22A69080900B4DCA1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				15CD92A32A69081C00B4DCA1 /* NotificationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		15CD92A52A6908AD00B4DCA1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1555BF2F2A62D9A000BCD227 /* QRGenerator.swift */,
+				15CD928A2A667A2D00B4DCA1 /* RESTAPIViewModel.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,8 +295,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15CD929B2A682E3A00B4DCA1 /* TicketResponse.swift in Sources */,
+				15CD929F2A69068F00B4DCA1 /* NotificationModel.swift in Sources */,
+				15CD92A42A69081C00B4DCA1 /* NotificationViewModel.swift in Sources */,
+				15CD929B2A682E3A00B4DCA1 /* TicketResponseModel.swift in Sources */,
 				15CD92992A6802ED00B4DCA1 /* TappingViewModel.swift in Sources */,
+				15CD92A12A6906A500B4DCA1 /* NotificationResponseModel.swift in Sources */,
 				15CD92852A65305B00B4DCA1 /* StationModels.swift in Sources */,
 				15CD927C2A62EEA300B4DCA1 /* CoreLocationViewModel.swift in Sources */,
 				1555BF1F2A61466100BCD227 /* ContentView.swift in Sources */,

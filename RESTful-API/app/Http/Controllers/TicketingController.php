@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Ticketing;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,9 +20,11 @@ class TicketingController extends Controller
         $tickets = Ticketing::all();
 
         if ($tickets->isEmpty()) {
+            $this->createNotification('error', 'Tickets not found');
             return response()->json(['status' => 'error', 'message' => 'Tickets not found'], 404);
         }
 
+        $this->createNotification('success', '');
         return response()->json(['status' => 'success', 'data' => $tickets], 200);
     }
 
@@ -47,6 +50,7 @@ class TicketingController extends Controller
         $validator = Validator::make($data, $rules);
         
         if ($validator->fails()) {
+            $this->createNotification('error', $validator->errors());
             return response()->json([
                 'status' => 'error',
                 'message' => $validator->errors()
@@ -54,6 +58,7 @@ class TicketingController extends Controller
         }
 
         $ticket = Ticketing::create($data);
+        $this->createNotification('success', '');
         return response()->json(['status' => 'success', 'data' => $ticket], 200);
     }
 
@@ -73,7 +78,7 @@ class TicketingController extends Controller
                             ->first();
 
         if (!$ticket) {
-            return response()->json(['status' => 'fail', 'data' => 'Ticket not found'], 404);
+            return response()->json(['status' => 'error', 'data' => 'Ticket not found'], 404);
         }
 
         return response()->json(['status' => 'success', 'data' => $ticket], 200);
@@ -102,6 +107,7 @@ class TicketingController extends Controller
         $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
+            $this->createNotification('error', $validator->errors());
             return response()->json([
                 'status' => 'error',
                 'message' => $validator->errors()
@@ -114,6 +120,7 @@ class TicketingController extends Controller
                             ->first();
 
         if (!$ticket) {
+            $this->createNotification('error', 'Tickets not found');
             return response()->json([
                 'status' => 'error',
                 'message' => 'Tickets not found'
@@ -134,6 +141,20 @@ class TicketingController extends Controller
         $ticket->tap_out_longitude = $data['tap_out_longitude'];
         $ticket->tap_out_station = $data['tap_out_station'];
         $ticket->save();
+        $this->createNotification('success', '');
         return response()->json(['status' => 'success', 'data' => $ticket], 201);
+    }
+
+    private function createNotification($status, $message) {
+        $requestData = [
+            'name' => 'Leonardo Wijaya',
+            'email' => 'leonardo.wijaya003@binus.ac.id',
+            'status' => $status,
+            'message' => $message
+        ];
+
+        $request = new Request($requestData);
+
+        (new NotificationController)->store($request);
     }
 }

@@ -9,22 +9,6 @@ use Illuminate\Support\Facades\Validator;
 class NotificationController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $notifications = Notification::all();
-
-        if ($notifications->isEmpty()) {
-            return response()->json(['status' => 'error', 'message' => 'Notifications not found'], 404);
-        }
-
-        return response()->json(['status' => 'success', 'data' => $notifications], 200);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

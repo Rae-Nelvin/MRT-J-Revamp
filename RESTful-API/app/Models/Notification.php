@@ -18,4 +18,9 @@ class Notification extends Model
         'status',
         'message'
     ];
+
+    public static function make(array $attributes = [])
+    {
+        return (new static)->forceFill($attributes);
+    }
 }

@@ -8,22 +8,28 @@
 import Foundation
 import SwiftUI
 
+enum TappingStatus: String {
+    case tapIn
+    case tapOut
+}
+
 class TappingViewModel: ObservableObject {
-    @Published var statusTap: Bool = false
+    @Published var statusTap: TappingStatus?
     @Published var qrCodeImage: UIImage?
     
     var clvm: CoreLocationViewModel
     var qrg: QRGenerator
+    var nvm: NotificationViewModel = NotificationViewModel(tvm: TicketingViewModel.shared)
     var timer: Timer?
     var name: String
     var email: String
     
-    init(name: String, email: String) {
+    init(name: String, email: String, clvm: CoreLocationViewModel) {
         self.name = name
         self.email = email
-        self.clvm = CoreLocationViewModel()
+        self.clvm = clvm
         self.qrg = QRGenerator()
-        clvm.locationManager.requestLocation()
+        self.clvm.locationManager.requestLocation()
     }
     
     func generateDataForQRCode(name: String, email: String) {}

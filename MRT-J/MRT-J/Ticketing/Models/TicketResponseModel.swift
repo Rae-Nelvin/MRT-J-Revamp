@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TicketResponse: Codable {
+struct TicketResponseModel: Codable {
     let status: String
     let data: Ticket
 }
