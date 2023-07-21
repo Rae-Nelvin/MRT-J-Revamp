@@ -99,6 +99,8 @@ struct MainMenuView: View {
                             Button{
                                 vm.showQR = true
                                 vm.startTimer()
+                                vm.isLoadingAnimation = true
+                                vm.startLoadingTimer()
                             }label: {
                                 Text("Show QR Code")
                                     //.bold()
@@ -117,8 +119,8 @@ struct MainMenuView: View {
                                 else{
                                     Button{
                                         vm.stopTimer()
-                                        vm.isLoadingAnimation = true
-                                        vm.startLoadingTimer()
+//                                        vm.isLoadingAnimation = true
+//                                        vm.startLoadingTimer()
                                         if vm.alertMoneyInsufficient == false{
                                             vm.checkBalance()
                                             vm.qrScanIn.toggle()

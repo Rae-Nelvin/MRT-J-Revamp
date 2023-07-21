@@ -16,8 +16,8 @@ class MainMenuVM: ObservableObject{
     @Published var stationDistance: Int = 2
     @Published var showQR: Bool = false
     @Published var qrImage: String = "qr"
-    @Published var timeRemaining = 5
-    @Published var timeLoadingRemaining = 3
+    @Published var timeRemaining = 14
+    @Published var timeLoadingRemaining = 2
     @Published private var timer: Timer? = nil
     @Published private var timer2: Timer? = nil
     @Published var scanTitle: String = "Entry QR Code"
@@ -49,7 +49,7 @@ class MainMenuVM: ObservableObject{
     func stopTimer() {
         timer?.invalidate()
         timer = nil
-        timeRemaining = 5
+        timeRemaining = 10
         self.showQR = false
 //        self.qrScanIn = false
     }
@@ -70,7 +70,7 @@ class MainMenuVM: ObservableObject{
     func stopLoadingTimer() {
         timer2?.invalidate()
         timer2 = nil
-        timeLoadingRemaining = 3
+        timeLoadingRemaining = 2
         self.isLoadingAnimation = false
 //        self.qrScanIn = false
     }
