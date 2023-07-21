@@ -18,9 +18,9 @@ struct MainMenuView: View {
                         Image(systemName: "location.fill")
                             .font(.title)
                             .foregroundColor(Color.white)
-                        Text("\(vm.currentTrainPosition[0]) Station")
+                        Text("\(vm.stationDistance) Km to \(vm.currentTrainPosition[0]) Station")
                             .bold()
-                            .font(.system(size: 20))
+                            .font(.system(size: 17))
                             .fontWeight(.bold)
                             .foregroundColor(Color.white)
                     }
@@ -111,24 +111,33 @@ struct MainMenuView: View {
                         }
                         else{
                             VStack{
-                                Button{
-                                    vm.stopTimer()
-                                    if vm.alertMoneyInsufficient == false{
-                                        vm.checkBalance()
-                                        vm.qrScanIn.toggle()
-                                        vm.generateQrBackground()
-                                    }
-                                    else{
-                                        vm.checkBalance()
-                                    }
-                                }label: {
-                                    Image("\(vm.qrImage)")
-                                        .resizable()
-                                        .frame(width: 250, height: 250)
-                                        .cornerRadius(10)
+                                if vm.isLoadingAnimation == true{
+                                    LoadingView()
                                 }
-                                Text("Code reset in \(vm.timeRemaining)s")
-                                    .foregroundColor(Color.white)
+                                else{
+                                    Button{
+                                        vm.stopTimer()
+                                        vm.isLoadingAnimation = true
+                                        vm.startLoadingTimer()
+                                        if vm.alertMoneyInsufficient == false{
+                                            vm.checkBalance()
+                                            vm.qrScanIn.toggle()
+                                            vm.generateQrBackground()
+                                        }
+                                        else{
+                                            vm.checkBalance()
+                                        }
+                                    }label: {
+                                        Image("\(vm.qrImage)")
+                                            .resizable()
+                                            .frame(width: 250, height: 250)
+                                    }
+                                    .frame(width: 300 , height: 300)
+                                    .background(Color.white)
+                                    .cornerRadius(10)
+                                    Text("Code reset in \(vm.timeRemaining)s")
+                                        .foregroundColor(Color.white)
+                                }
                             }
                         }
                     }
