@@ -43,23 +43,11 @@ struct MainMenuView: View {
                                     }
                                     .foregroundColor(Color.black)
                                     .padding(.horizontal, 10)
-                                    .padding(.vertical, 3)
+                                    .padding(.vertical, 5)
                                     .background(Color.white)
                                     .cornerRadius(10)
                                 }
-//                                Button{
-//                                    vm.balance += 100000
-//                                    vm.checkBalance()
-//                                }label: {
-//
-//                                    Text("+ Top Up")
-//                                        .foregroundColor(Color.black)
-//
-//                                        .padding(.horizontal, 10)
-//                                        .padding(.vertical, 3)
-//                                        .background(Color.white)
-//                                        .cornerRadius(10)
-//                                }
+                                .padding(.trailing, 5)
                                 NavigationLink(destination: HistoryView()){
                                     HStack{
                                         Image(systemName: "list.bullet")
@@ -67,7 +55,7 @@ struct MainMenuView: View {
                                     }
                                     .foregroundColor(Color.black)
                                     .padding(.horizontal, 10)
-                                    .padding(.vertical, 3)
+                                    .padding(.vertical, 5)
                                     .background(Color.white)
                                     .cornerRadius(10)
                                 }
@@ -80,6 +68,7 @@ struct MainMenuView: View {
                     .background(Color(red: 0.054901960784313725, green: 0.10196078431372549, blue: 0.16470588235294117))
                     .cornerRadius(10)
                 }
+                .padding(.bottom, 10)
                 VStack{
                     HStack{
                         VStack(alignment: .leading){
@@ -90,7 +79,6 @@ struct MainMenuView: View {
                                 .foregroundColor(Color(red:0.05, green:0.1, blue: 0.16))
                                 .multilineTextAlignment(.leading)
                                 
-                            
                             Text("\(vm.scanSubtitle)")
                                 .fontWeight(.semibold)
                                 .font(.title3)

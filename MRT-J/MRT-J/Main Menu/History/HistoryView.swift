@@ -11,10 +11,14 @@ struct HistoryView: View {
     
     // Example payment history data
     let paymentHistory: [HistoryModel] = [
-        HistoryModel(date: "2023-07-21", time: "22:22", description: "Top Up", balance: 100000, paymentMethod: "BCA OneKlik", type: "Top Up"),
-        HistoryModel(date: "2023-07-21",time: "21:21", description: "Top Up", balance: 100000, paymentMethod: "BCA OneKlik", type: "Top Up"),
-        HistoryModel(date: "2023-07-15",time: "12:21", description: "Lebak Bulus Grab", balance: 14000, paymentMethod: "Payment", type: "Mrt"),
-        HistoryModel(date: "2023-07-10",time: "21:12", description: "Blok M", balance: 14000, paymentMethod: "Payment", type: "Mrt")
+        HistoryModel(date: "2023-07-21", time: "22:22", description: "Top Up", balance: 20000, paymentMethod: "BCA OneKlik", type: "Top Up"),
+        HistoryModel(date: "2023-07-21",time: "21:21", description: "Top Up", balance: 20000, paymentMethod: "BCA OneKlik", type: "Top Up"),
+        HistoryModel(date: "2023-07-15",time: "12:21", description: "LBB - BHI", balance: 14000, paymentMethod: "Payment", type: "Mrt"),
+        HistoryModel(date: "2023-07-10",time: "21:12", description: "LBB - BLM", balance: 14000, paymentMethod: "Payment", type: "Mrt"),
+        HistoryModel(date: "2023-07-20",time: "12:10", description: "BCA Oneklik", balance: 20000, paymentMethod: "Payment", type: "Top Up"),
+        HistoryModel(date: "2023-07-02",time: "13:12", description: "STB - BHI", balance: 14000, paymentMethod: "Payment", type: "Mrt"),
+        HistoryModel(date: "2023-07-09",time: "21:12", description: "BHI - STB", balance: 14000, paymentMethod: "Payment", type: "Mrt"),
+        HistoryModel(date: "2023-07-10",time: "21:12", description: "Top Up", balance: 14000, paymentMethod: "Alfamidi", type: "Top Up")
     ]
     
     var body: some View {
@@ -30,10 +34,13 @@ struct HistoryView: View {
                                 HStack {
                                     Text("\(entry.time)")
                                         .foregroundColor(Color.gray)
+                                        .frame(width: 55)
                                     if entry.type == "Mrt" {
                                         Image(systemName: "bus")
                                         VStack(alignment: .leading) {
                                             Text("\(entry.description)")
+                                                .bold()
+                                                .font(.system(size: 17))
                                             Text("\(entry.paymentMethod)")
                                         }
                                         Spacer()
@@ -42,7 +49,10 @@ struct HistoryView: View {
                                         Image(systemName: "plus.square.fill")
                                         VStack(alignment: .leading) {
                                             Text("\(entry.description)")
+                                                .bold()
+                                                .font(.system(size: 17))
                                             Text("\(entry.paymentMethod)")
+                                                .font(.system(size: 13))
                                         }
                                         Spacer()
                                         Text("+ Rp.\(entry.balance)")
@@ -50,12 +60,14 @@ struct HistoryView: View {
                                 }
                                 .listRowBackground(Color.white)
                             }
+                            .padding(.vertical, 10)
                         }
                     }
                 }
                 .listStyle(.plain)
                 
             }
+            .foregroundColor(Color.black)
             .ignoresSafeArea()
             .navigationBarTitle("History")
             .padding()
