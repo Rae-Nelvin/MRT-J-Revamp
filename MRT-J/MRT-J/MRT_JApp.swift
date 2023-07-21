@@ -9,9 +9,21 @@ import SwiftUI
 
 @main
 struct MRT_JApp: App {
+    @State private var showSplashScreen = true
     var body: some Scene {
         WindowGroup {
-            MainMenuView()
+            if showSplashScreen {
+                SplashScreenView()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            withAnimation {
+                                showSplashScreen = false
+                            }
+                        }
+                    }
+            } else {
+                MainMenuView()
+            }
         }
     }
 }
