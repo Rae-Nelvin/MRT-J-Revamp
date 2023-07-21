@@ -11,9 +11,12 @@ class NotificationViewModel: ObservableObject {
     
     let ravm: RESTAPIViewModel = RESTAPIViewModel()
     private var tvm: TicketingViewModel?
+    private var notifications: [Notification]
     
     init(tvm: TicketingViewModel) {
         self.tvm = tvm
+        self.notifications = []
+        self.deleteNotification()
     }
     
     func getNotification() {
@@ -28,10 +31,14 @@ class NotificationViewModel: ObservableObject {
                     if notification?.status == "success" {
                         DispatchQueue.main.async {
                             self?.tvm?.statusTicketing = .success
+                            timer.invalidate()
                         }
                     } else if notification?.status == "error" {
                         self?.tvm?.statusTicketing = .error
+                        timer.invalidate()
                     }
+                    guard let notification = notification else { return }
+                    self?.notifications.append(notification)
                     return
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -39,12 +46,26 @@ class NotificationViewModel: ObservableObject {
                 }
             }
             i += 1
-            if i == 5 {
+            if i > 9 {
                 timer.invalidate()
             }
         })
-        if self.tvm?.statusTicketing ==  .success {
-            self.tvm?.checkTicket()
+        self.tvm?.checkTicket()
+    }
+    
+    private func deleteNotification() {
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+            guard let notification = self.notifications.first else { return }
+            self.ravm.deleteNotification(notification: notification) { result in
+                switch result {
+                case .success(let result):
+                    print(result)
+                    return
+                case .failure(let error):
+                    print(error)
+                    return
+                }
+            }
         }
     }
     

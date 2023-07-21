@@ -37,10 +37,11 @@ class TapOutViewModel: TappingViewModel {
         ticket.tap_out_station = "DummyStation2"
         guard let jsonData = generateJSONData(ticket: ticket) else { return }
         super.qrCodeImage = super.qrg.generateQRCode(apiEndpoint: "\(nvm.ravm.ngrokURL)/api/put/ticket/", requestData: jsonData)
+        super.isLoading.toggle()
     }
     
     override func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [weak self] _ in
             self?.generateDataForQRCode(name: self?.name ?? "nil", email: self?.email ?? "nil")
             self?.nvm.getNotification()
             self?.objectWillChange.send()

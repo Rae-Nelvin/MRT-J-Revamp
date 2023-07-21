@@ -34,6 +34,7 @@ struct stationLists {
         Station(name: "Bendungan Hilir", latitude: -6.214871994696852, longitude:  106.81856154505303),
         Station(name: "Setiabudi Astra", latitude: -6.208682460042654, longitude: 106.82264328920336),
         Station(name: "Dukuh Atas BNI", latitude: -6.200658526399624, longitude:  106.82320379630734),
-        Station(name: "Bundaran HI", latitude: -6.1916572930385225, longitude: 106.8235240289828)
+        Station(name: "Bundaran HI", latitude: -6.1916572930385225, longitude: 106.8235240289828),
+        Station(name: "Academy Station", latitude: -6.302092748372923, longitude: 106.652895630444) // Testing purposes
     ]
 }

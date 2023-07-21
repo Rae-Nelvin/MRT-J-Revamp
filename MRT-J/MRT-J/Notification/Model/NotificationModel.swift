@@ -8,12 +8,14 @@
 import Foundation
 
 struct Notification: Codable {
+    let id: Int
     let name: String
     let email: String
     let status: String
     let message: String?
     
-    init(name: String, email: String, status: String, message: String?) {
+    init(id: Int, name: String, email: String, status: String, message: String?) {
+        self.id = id
         self.name = name
         self.email = email
         self.status = status

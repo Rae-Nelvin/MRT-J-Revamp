@@ -12,9 +12,9 @@ class TapInViewModel: TappingViewModel {
     
     override init(name: String, email: String, clvm: CoreLocationViewModel) {
         super.init(name: name, email: email, clvm: clvm)
+        super.statusTap = .tapIn
         generateDataForQRCode(name: super.name, email: super.email)
         startTimer()
-        super.statusTap = .tapIn
     }
     
     deinit {
@@ -30,13 +30,13 @@ class TapInViewModel: TappingViewModel {
         let ticket = Ticket(name: super.name, email: super.email, tap_in_id: UUID().uuidString, tap_in_time: currentTime, tap_in_latitude: latitude ?? "nil", tap_in_longitude: longitude ?? "nil", tap_in_station: "DummyStation")
         guard let jsonData = generateJSONData(ticket: ticket) else { return }
         super.qrCodeImage = super.qrg.generateQRCode(apiEndpoint: "\(nvm.ravm.ngrokURL)/api/post/ticket/", requestData: jsonData)
-        self.objectWillChange.send()
     }
     
     override func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [weak self] _ in
             self?.generateDataForQRCode(name: self?.name ?? "nil", email: self?.email ?? "nil")
             self?.nvm.getNotification()
+            self?.objectWillChange.send()
         }
     }
     

@@ -16,6 +16,7 @@ enum TappingStatus: String {
 class TappingViewModel: ObservableObject {
     @Published var statusTap: TappingStatus?
     @Published var qrCodeImage: UIImage?
+    @Published var isLoading: Bool = false
     
     var clvm: CoreLocationViewModel
     var qrg: QRGenerator
@@ -30,6 +31,7 @@ class TappingViewModel: ObservableObject {
         self.clvm = clvm
         self.qrg = QRGenerator()
         self.clvm.locationManager.requestLocation()
+        self.objectWillChange.send()
     }
     
     func generateDataForQRCode(name: String, email: String) {}

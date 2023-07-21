@@ -18,7 +18,7 @@ enum APIError: Error {
 
 class RESTAPIViewModel: ObservableObject {
     
-    let ngrokURL = "https://3102-158-140-189-122.ngrok-free.app"
+    let ngrokURL = "https://57fe-158-140-189-122.ngrok-free.app"
     
     func getNotification(name: String, email: String, completion: @escaping (Result<Notification?, Error>) -> Void) {
         guard let encodedName = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -56,9 +56,38 @@ class RESTAPIViewModel: ObservableObject {
                     } catch {
                         completion(.failure(APIError.other(error)))
                     }
+                default:
+                    completion(.failure(APIError.other(NSError(domain: "", code: httpResponse.statusCode, userInfo: nil))))
+                }
+            } else {
+                completion(.failure(APIError.unknown))
+            }
+        }
+        task.resume()
+    }
+    
+    func deleteNotification(notification: Notification, completion: @escaping (Result<Bool, Error>) -> Void) {
+        
+        let notificationID = notification.id
+        let urlString =  "\(ngrokURL)/api/notification/delete/\(String(describing: notificationID))"
+        
+        guard let url = URL(string: urlString) else {
+            completion(.failure(APIError.invalidURL))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 200:
+                    completion(.success(true))
                 case 404:
-                    print("No data Found")
-//                    completion(.failure(APIError.notFound))
+                    completion(.failure(APIError.noData))
                 default:
                     completion(.failure(APIError.other(NSError(domain: "", code: httpResponse.statusCode, userInfo: nil))))
                 }

@@ -23,7 +23,5 @@ Route::get('post/ticket/{jsonData}', [TicketingController::class, 'store']);
 // Route::put('tickets', [TicketingController::class, 'update']);
 Route::get('put/ticket/{jsonData}', [TicketingController::class, 'update']);
 Route::get('ticket/{name}/{email}', [TicketingController::class, 'show']);
-Route::get('notifications', [NotificationController::class, 'index']);
-Route::post('notifications', [NotificationController::class, 'store']);
 Route::get('notification/{name}/{email}', [NotificationController::class, 'show']);
-Route::delete('notification/{id}', [NotificationController::class, 'delete']);
+Route::get('delete/notification/{id}', [NotificationController::class, 'delete']);
