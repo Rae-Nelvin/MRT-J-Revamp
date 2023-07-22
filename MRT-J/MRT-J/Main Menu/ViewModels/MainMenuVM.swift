@@ -13,10 +13,13 @@ class MainMenuVM: ObservableObject{
     @Published var name: String = "Helen"
     @Published var balance: Int = 100000
     @Published var currentTrainPosition = ["Lebak Bulus Grab", "Fatmawati Indomaret", "Cipete Raya", "Haji Nawi", "Blok A", "Blok M BCA", "ASEAN", "Senayan", "Istora Mandiri", "Bendungan Hilir", "SetiaBbudi Astra", "Dukuh Atas BNI", "Bundaran HI"]
+    @Published var stationDistance: Int = 2
     @Published var showQR: Bool = false
     @Published var qrImage: String = "qr"
-    @Published var timeRemaining = 5
+    @Published var timeRemaining = 14
+    @Published var timeLoadingRemaining = 2
     @Published private var timer: Timer? = nil
+    @Published private var timer2: Timer? = nil
     @Published var scanTitle: String = "Entry QR Code"
     @Published var scanSubtitle: String = "Scan the code to start your trip"
     @Published var qrBackground: Color = Color.rgb(32,95,166)
@@ -24,7 +27,12 @@ class MainMenuVM: ObservableObject{
     @Published var alertMoneyInsufficient : Bool = false
     @Published var alertMoneyInsufficientIsPresent: Bool = false
     @Published var showPaymentSheet: Bool = false
+    @Published var isLoadingAnimation: Bool = false
+    @Published var showLoadingAnimation: Bool = false
     
+    init(){
+        startTimer()
+    }
     
     func startTimer() {
         if timer == nil {
@@ -41,8 +49,29 @@ class MainMenuVM: ObservableObject{
     func stopTimer() {
         timer?.invalidate()
         timer = nil
-        timeRemaining = 5
+        timeRemaining = 10
         self.showQR = false
+//        self.qrScanIn = false
+    }
+    
+    
+    func startLoadingTimer() {
+        if timer2 == nil {
+            timer2 = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                if self.timeLoadingRemaining > 0 {
+                    self.timeLoadingRemaining -= 1
+                } else {
+                    self.stopLoadingTimer()
+                }
+            }
+        }
+    }
+    
+    func stopLoadingTimer() {
+        timer2?.invalidate()
+        timer2 = nil
+        timeLoadingRemaining = 2
+        self.isLoadingAnimation = false
 //        self.qrScanIn = false
     }
     

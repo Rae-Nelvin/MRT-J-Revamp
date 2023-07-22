@@ -14,128 +14,13 @@ struct MainMenuView: View {
         NavigationView{
             VStack{
                 VStack(alignment: .leading){
-                    HStack{
-                        Image(systemName: "location.fill")
-                            .font(.title)
-                            .foregroundColor(Color.white)
-                        Text("\(vm.currentTrainPosition[0]) Station")
-                            .bold()
-                            .font(.system(size: 20))
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.white)
-                    }
-                    HStack{
-                        VStack(alignment: .leading){
-                            Text("Balance")
-                                .foregroundColor(Color.white)
-                                .font(.system(size: 15))
-                                .fontWeight(.medium)
-                                .bold()
-                            Text("Rp\(vm.balance)")
-                                .font(.system(size: 25))
-                                .fontWeight(.heavy)
-                                .foregroundColor(Color.white)
-                                .bold()
-                            HStack{
-                                NavigationLink(destination: TopUpView(vm: vm)){
-                                    HStack{
-                                        Text("+ Top Up")
-                                    }
-                                    .foregroundColor(Color.black)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 5)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
-                                }
-                                .padding(.trailing, 5)
-                                NavigationLink(destination: HistoryView()){
-                                    HStack{
-                                        Image(systemName: "list.bullet")
-                                        Text("History")
-                                    }
-                                    .foregroundColor(Color.black)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 5)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
-                                }
-                            }
-                        }
-                        .padding(.horizontal)
-                        Spacer()
-                    }
-                    .frame(width: 355, height: 140)
-                    .background(Color(red: 0.054901960784313725, green: 0.10196078431372549, blue: 0.16470588235294117))
-                    .cornerRadius(10)
+                    TrainPoisition(vm: self.vm)
+                    Card(vm: self.vm)
                 }
                 .padding(.bottom, 10)
                 VStack{
-                    HStack{
-                        VStack(alignment: .leading){
-                            Text("\(vm.scanTitle)")
-                                .fontWeight(.bold)
-                                //.bold()
-                                .font(.title2)
-                                .foregroundColor(Color(red:0.05, green:0.1, blue: 0.16))
-                                .multilineTextAlignment(.leading)
-                                
-                            Text("\(vm.scanSubtitle)")
-                                .fontWeight(.semibold)
-                                .font(.title3)
-                                .foregroundColor(Color(red:0.05, green:0.1, blue: 0.16))
-                                .multilineTextAlignment(.leading)
-                            Divider()
-                                .frame(maxWidth: .infinity)
-                                .overlay(.black)
-                        }
-                        .padding(.bottom, 20)
-                        Spacer()
-                    }
-                    ZStack{
-                        Image("Doodle")
-                            .resizable()
-                            .contrast(2)
-                        if vm.showQR == false{
-                            Button{
-                                vm.showQR = true
-                                vm.startTimer()
-                            }label: {
-                                Text("Show QR Code")
-                                    //.bold()
-                                    .foregroundColor(Color(red:0.05, green:0.1, blue: 0.16))
-                                    .fontWeight(.heavy)
-                                    .frame(width: 200, height: 40)
-                                    .background(Color.white)
-                                    .cornerRadius(20)
-                            }
-                        }
-                        else{
-                            VStack{
-                                Button{
-                                    vm.stopTimer()
-                                    if vm.alertMoneyInsufficient == false{
-                                        vm.checkBalance()
-                                        vm.qrScanIn.toggle()
-                                        vm.generateQrBackground()
-                                    }
-                                    else{
-                                        vm.checkBalance()
-                                    }
-                                }label: {
-                                    Image("\(vm.qrImage)")
-                                        .resizable()
-                                        .frame(width: 250, height: 250)
-                                        .cornerRadius(10)
-                                }
-                                Text("Code reset in \(vm.timeRemaining)s")
-                                    .foregroundColor(Color.white)
-                            }
-                        }
-                    }
-                    .frame(width: 345, height: 392)
-                    .frame(maxWidth: .infinity)
-                    .background(vm.qrBackground)
-                    .cornerRadius(10)
+                    ScanTextSection(vm: self.vm)
+                    QRSection(vm: self.vm)
                     Spacer()
                 }
                 .padding(20)
@@ -170,3 +55,196 @@ struct MainMenuView_Previews: PreviewProvider {
     }
 }
 
+struct TrainPoisition: View {
+    let vm: MainMenuVM
+    
+    var body: some View {
+        HStack{
+            Image(systemName: "location.fill")
+                .font(.title)
+                .foregroundColor(Color.white)
+            Text("\(vm.stationDistance) Km to \(vm.currentTrainPosition[0]) Station")
+                .bold()
+                .font(.system(size: 17))
+                .fontWeight(.bold)
+                .foregroundColor(Color.white)
+        }
+    }
+}
+
+struct Card: View {
+    let vm: MainMenuVM
+    
+    var body: some View {
+        HStack{
+            VStack(alignment: .leading){
+                CardText(text: "Balance", fontWeight: .medium, fontSize: 15)
+                CardText(text: "Rp\(vm.balance)", fontWeight: .heavy, fontSize: 25)
+                HStack{
+                    CardButton(text: "+ Top Up") {
+                        TopUpView(vm: self.vm)
+                    }
+                    .padding(.trailing, 5)
+                    CardButton(text: "History", imageName: "list.bullet") {
+                        HistoryView()
+                    }
+                }
+            }
+            .padding(.horizontal)
+            Spacer()
+        }
+        .frame(width: 355, height: 140)
+        .background(Color(red: 0.054901960784313725, green: 0.10196078431372549, blue: 0.16470588235294117))
+        .cornerRadius(10)
+    }
+}
+
+struct CardText: View {
+    let text: String
+    let fontWeight: Font.Weight
+    let fontSize: CGFloat
+    
+    var body: some View {
+        Text(text)
+            .font(.system(size: fontSize))
+            .fontWeight(fontWeight)
+            .foregroundColor(Color.white)
+            .bold()
+    }
+}
+
+struct CardButton<Content: View>: View {
+    let text: String
+    let destination: () -> Content
+    let imageName: String?
+    
+    init(text: String, imageName: String? = nil, destination: @escaping () -> Content) {
+        self.text = text
+        self.imageName = imageName
+        self.destination = destination
+    }
+    
+    var body: some View {
+        NavigationLink(destination: destination()){
+            HStack{
+                if (imageName != nil) {
+                    Image(systemName: imageName!)
+                }
+                Text(text)
+            }
+            .foregroundColor(Color.black)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(Color.white)
+            .cornerRadius(10)
+        }
+    }
+}
+
+struct ScanTextSection: View {
+    let vm: MainMenuVM
+    
+    var body: some View {
+        HStack{
+            VStack(alignment: .leading){
+                ScanText(text: "\(vm.scanTitle)", fontWeight: .bold, font: .title2)
+                ScanText(text: "\(vm.scanSubtitle)", fontWeight: .semibold, font: .title3)
+                Divider()
+                    .frame(maxWidth: .infinity)
+                    .overlay(.black)
+            }
+            .padding(.bottom, 20)
+            Spacer()
+        }
+    }
+}
+
+struct ScanText: View {
+    let text: String
+    let fontWeight: Font.Weight
+    let font: Font
+    
+    var body: some View {
+        Text(text)
+            .fontWeight(fontWeight)
+            .font(font)
+            .foregroundColor(Color(red:0.05, green:0.1, blue: 0.16))
+            .multilineTextAlignment(.leading)
+    }
+}
+
+struct QRSection: View {
+    let vm: MainMenuVM
+    
+    var body: some View {
+        ZStack{
+            Image("Doodle")
+                .resizable()
+                .contrast(2)
+            if vm.showQR == false{
+                hiddenQR(vm: self.vm)
+            }
+            else{
+                shownQR(vm: self.vm)
+            }
+        }
+        .frame(width: 345, height: 392)
+        .frame(maxWidth: .infinity)
+        .background(vm.qrBackground)
+        .cornerRadius(10)
+    }
+}
+
+struct hiddenQR: View {
+    let vm: MainMenuVM
+    
+    var body: some View {
+        Button{
+            vm.showQR = true
+            vm.startTimer()
+            vm.isLoadingAnimation = true
+            vm.startLoadingTimer()
+        }label: {
+            Text("Show QR Code")
+                .foregroundColor(Color(red:0.05, green:0.1, blue: 0.16))
+                .fontWeight(.heavy)
+                .frame(width: 200, height: 40)
+                .background(Color.white)
+                .cornerRadius(20)
+        }
+    }
+}
+
+struct shownQR: View {
+    let vm: MainMenuVM
+    
+    var body: some View {
+        VStack{
+            if vm.isLoadingAnimation == true{
+                LoadingView()
+            }
+            else{
+                Button{
+                    vm.stopTimer()
+                    if vm.alertMoneyInsufficient == false{
+                        vm.checkBalance()
+                        vm.qrScanIn.toggle()
+                        vm.generateQrBackground()
+                    }
+                    else{
+                        vm.checkBalance()
+                    }
+                }label: {
+                    Image("\(vm.qrImage)")
+                        .resizable()
+                        .frame(width: 250, height: 250)
+                }
+                .frame(width: 300 , height: 300)
+                .background(Color.white)
+                .cornerRadius(10)
+                Text("Code reset in \(vm.timeRemaining)s")
+                    .foregroundColor(Color.white)
+            }
+        }
+    }
+}
