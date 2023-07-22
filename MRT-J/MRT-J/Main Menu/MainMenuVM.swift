@@ -16,7 +16,7 @@ class MainMenuVM: ObservableObject{
     @Published var stationDistance: Int = 2
     @Published var showQR: Bool = false
     @Published var qrImage: String = "qr"
-    @Published var timeRemaining = 14
+    @Published var timeRemaining = 13
     @Published var timeLoadingRemaining = 2
     @Published private var timer: Timer? = nil
     @Published private var timer2: Timer? = nil
@@ -49,7 +49,7 @@ class MainMenuVM: ObservableObject{
     func stopTimer() {
         timer?.invalidate()
         timer = nil
-        timeRemaining = 10
+        timeRemaining = 13
         self.showQR = false
 //        self.qrScanIn = false
     }

@@ -119,6 +119,7 @@ struct MainMenuView: View {
                                 else{
                                     Button{
                                         vm.stopTimer()
+//                                        vm.stopLoadingTimer()
 //                                        vm.isLoadingAnimation = true
 //                                        vm.startLoadingTimer()
                                         if vm.alertMoneyInsufficient == false{
