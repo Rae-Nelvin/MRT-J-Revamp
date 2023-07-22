@@ -11,7 +11,7 @@ import SwiftUI
 struct MRT_JApp: App {
     var body: some Scene {
         WindowGroup {
-            MainMenuView()
+            TicketingView()
         }
     }
 }
