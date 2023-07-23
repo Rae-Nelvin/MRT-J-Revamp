@@ -9,9 +9,23 @@ import SwiftUI
 
 @main
 struct MRT_JApp: App {
+    @ObservedObject private var tvm: TicketingViewModel = TicketingViewModel.shared
+    @State private var showSplashScreen = true
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if showSplashScreen {
+                SplashScreenView()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            withAnimation {
+                                showSplashScreen = false
+                            }
+                        }
+                    }
+            } else {
+                MainMenuView()
+            }
         }
     }
 }
