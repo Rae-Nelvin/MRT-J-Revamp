@@ -31,14 +31,15 @@ class NotificationViewModel: ObservableObject {
                     if notification?.status == "success" {
                         DispatchQueue.main.async {
                             self?.tvm?.statusTicketing = .success
-                            timer.invalidate()
+                            self?.tvm?.checkTicket()
                         }
                     } else if notification?.status == "error" {
                         self?.tvm?.statusTicketing = .error
-                        timer.invalidate()
                     }
                     guard let notification = notification else { return }
                     self?.notifications.append(notification)
+                    self?.deleteNotification()
+                    timer.invalidate()
                     return
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -50,11 +51,10 @@ class NotificationViewModel: ObservableObject {
                 timer.invalidate()
             }
         })
-        self.tvm?.checkTicket()
     }
     
     private func deleteNotification() {
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
             guard let notification = self.notifications.first else { return }
             self.ravm.deleteNotification(notification: notification) { result in
                 switch result {
