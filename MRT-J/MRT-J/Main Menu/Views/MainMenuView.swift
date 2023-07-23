@@ -10,17 +10,20 @@ import CoreImage.CIFilterBuiltins
 
 struct MainMenuView: View {
     @ObservedObject private var vm = MainMenuVM()
+    @ObservedObject private var tvm: TicketingViewModel = TicketingViewModel.shared
+    @State var nvm: NotificationViewModel?
+    
     var body: some View {
         NavigationView{
             VStack{
                 VStack(alignment: .leading){
-                    TrainPoisition(vm: self.vm)
+                    TrainPoisition()
                     Card(vm: self.vm)
                 }
                 .padding(.bottom, 10)
                 VStack{
-                    ScanTextSection(vm: self.vm)
-                    QRSection(vm: self.vm)
+                    ScanTextSection(vm: vm)
+                    QRSection(vm: vm)
                     Spacer()
                 }
                 .padding(20)
@@ -45,6 +48,9 @@ struct MainMenuView: View {
             }
         }
         .tint(Color.white)
+        .onAppear() {
+            nvm = NotificationViewModel(tvm: tvm)
+        }
     }
     
 }
@@ -56,14 +62,14 @@ struct MainMenuView_Previews: PreviewProvider {
 }
 
 struct TrainPoisition: View {
-    let vm: MainMenuVM
+    let tvm: TicketingViewModel = TicketingViewModel.shared
     
     var body: some View {
         HStack{
             Image(systemName: "location.fill")
                 .font(.title)
                 .foregroundColor(Color.white)
-            Text("\(vm.stationDistance) Km to \(vm.currentTrainPosition[0]) Station")
+            Text("\(String(format: "%.2f", tvm.gvm.closestDistances ?? 0.0)) KM to \( tvm.gvm.closestStationName ?? "") Station")
                 .bold()
                 .font(.system(size: 17))
                 .fontWeight(.bold)
@@ -142,7 +148,7 @@ struct CardButton<Content: View>: View {
 }
 
 struct ScanTextSection: View {
-    let vm: MainMenuVM
+    @StateObject var vm: MainMenuVM
     
     var body: some View {
         HStack{
@@ -160,7 +166,7 @@ struct ScanTextSection: View {
 }
 
 struct ScanText: View {
-    let text: String
+    var text: String
     let fontWeight: Font.Weight
     let font: Font
     
@@ -174,7 +180,7 @@ struct ScanText: View {
 }
 
 struct QRSection: View {
-    let vm: MainMenuVM
+    @StateObject var vm: MainMenuVM
     
     var body: some View {
         ZStack{
@@ -182,10 +188,10 @@ struct QRSection: View {
                 .resizable()
                 .contrast(2)
             if vm.showQR == false{
-                hiddenQR(vm: self.vm)
+                hiddenQR(vm: vm)
             }
             else{
-                shownQR(vm: self.vm)
+                shownQR(vm: vm)
             }
         }
         .frame(width: 345, height: 392)
@@ -196,15 +202,16 @@ struct QRSection: View {
 }
 
 struct hiddenQR: View {
-    let vm: MainMenuVM
+    @StateObject var vm: MainMenuVM
+    let tvm: TicketingViewModel = TicketingViewModel.shared
     
     var body: some View {
-        Button{
+        Button {
             vm.showQR = true
-            vm.startTimer()
             vm.isLoadingAnimation = true
             vm.startLoadingTimer()
-        }label: {
+            tvm.checkTicket()
+        } label: {
             Text("Show QR Code")
                 .foregroundColor(Color(red:0.05, green:0.1, blue: 0.16))
                 .fontWeight(.heavy)
@@ -216,33 +223,32 @@ struct hiddenQR: View {
 }
 
 struct shownQR: View {
-    let vm: MainMenuVM
+    @StateObject var vm: MainMenuVM
+    var tvm: TicketingViewModel = TicketingViewModel.shared
     
     var body: some View {
         VStack{
-            if vm.isLoadingAnimation == true{
+            if tvm.isLoading == true{
                 LoadingView()
             }
             else{
                 Button{
-                    vm.stopTimer()
                     if vm.alertMoneyInsufficient == false{
                         vm.checkBalance()
                         vm.qrScanIn.toggle()
-                        vm.generateQrBackground()
                     }
                     else{
                         vm.checkBalance()
                     }
-                }label: {
-                    Image("\(vm.qrImage)")
+                } label: {
+                    Image(uiImage: (tvm.tpvm?.qrCodeImage) ?? UIImage())
                         .resizable()
                         .frame(width: 250, height: 250)
                 }
                 .frame(width: 300 , height: 300)
                 .background(Color.white)
                 .cornerRadius(10)
-                Text("Code reset in \(vm.timeRemaining)s")
+                Text("Code reset in \(tvm.tpvm?.timeLeft ?? 0)s")
                     .foregroundColor(Color.white)
             }
         }

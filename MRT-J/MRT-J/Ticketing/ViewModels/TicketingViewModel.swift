@@ -18,6 +18,8 @@ class TicketingViewModel: ObservableObject {
     let clvm: CoreLocationViewModel = CoreLocationViewModel()
     @Published var location: CLLocation?
     @Published var statusTicketing: NotificationStatus?
+    @Published var gvm: GeolocationViewModel = GeolocationViewModel()
+    @Published var isLoading: Bool = false
     
     // MARK: Dummy Data
     let name = "Leonardo Wijaya"
@@ -40,6 +42,12 @@ class TicketingViewModel: ObservableObject {
                 } else {
                     DispatchQueue.main.async {
                         self.tpvm = TapInViewModel(name: self.name, email: self.email, clvm: self.clvm)
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.isLoading.toggle()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.isLoading.toggle()
                     }
                 }
                 DispatchQueue.main.async {

@@ -15,9 +15,8 @@ class TapOutViewModel: TappingViewModel {
     init(name: String, email: String, ticket: Ticket, clvm: CoreLocationViewModel) {
         self.ticket = ticket
         super.init(name: name, email: email, clvm: clvm)
-        generateDataForQRCode(name: super.name, email: super.email)
-        startTimer()
         super.statusTap = .tapOut
+        self.startTimer()
     }
     
     deinit {
@@ -37,14 +36,27 @@ class TapOutViewModel: TappingViewModel {
         ticket.tap_out_station = "DummyStation2"
         guard let jsonData = generateJSONData(ticket: ticket) else { return }
         super.qrCodeImage = super.qrg.generateQRCode(apiEndpoint: "\(nvm.ravm.ngrokURL)/api/put/ticket/", requestData: jsonData)
-        super.isLoading.toggle()
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+            self.nvm.getNotification()
+        }
     }
     
     override func startTimer() {
+        generateDataForQRCode(name: self.name, email: self.email)
+        timer()
         timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [weak self] _ in
             self?.generateDataForQRCode(name: self?.name ?? "nil", email: self?.email ?? "nil")
-            self?.nvm.getNotification()
             self?.objectWillChange.send()
+        }
+    }
+    
+    func timer() {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            if self?.timeLeft ?? 1 > 0 {
+                self?.timeLeft -= 1
+            } else {
+                self?.timeLeft = 14
+            }
         }
     }
 }

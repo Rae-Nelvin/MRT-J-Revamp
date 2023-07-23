@@ -14,7 +14,7 @@ struct MRT_JApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if tvm.location == nil {
+            if showSplashScreen {
                 SplashScreenView()
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {

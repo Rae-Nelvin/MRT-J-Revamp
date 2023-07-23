@@ -13,7 +13,6 @@ class TapInViewModel: TappingViewModel {
     override init(name: String, email: String, clvm: CoreLocationViewModel) {
         super.init(name: name, email: email, clvm: clvm)
         super.statusTap = .tapIn
-        generateDataForQRCode(name: super.name, email: super.email)
         startTimer()
     }
     
@@ -33,10 +32,23 @@ class TapInViewModel: TappingViewModel {
     }
     
     override func startTimer() {
+        generateDataForQRCode(name: self.name, email: self.email)
+        self.nvm.getNotification()
+        timer()
         timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [weak self] _ in
             self?.generateDataForQRCode(name: self?.name ?? "nil", email: self?.email ?? "nil")
-            self?.nvm.getNotification()
             self?.objectWillChange.send()
+            self?.nvm.getNotification()
+        }
+    }
+    
+    func timer() {
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            if self?.timeLeft ?? 1 > 0 {
+                self?.timeLeft -= 1
+            } else {
+                self?.timeLeft = 14
+            }
         }
     }
     

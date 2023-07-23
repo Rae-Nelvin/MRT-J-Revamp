@@ -16,7 +16,7 @@ class MainMenuVM: ObservableObject{
     @Published var stationDistance: Int = 2
     @Published var showQR: Bool = false
     @Published var qrImage: String = "qr"
-    @Published var timeRemaining = 14
+    @Published var timeRemaining = 16
     @Published var timeLoadingRemaining = 2
     @Published private var timer: Timer? = nil
     @Published private var timer2: Timer? = nil
@@ -30,30 +30,10 @@ class MainMenuVM: ObservableObject{
     @Published var isLoadingAnimation: Bool = false
     @Published var showLoadingAnimation: Bool = false
     
+    private var tvm: TicketingViewModel = TicketingViewModel.shared
+    
     init(){
-        startTimer()
     }
-    
-    func startTimer() {
-        if timer == nil {
-            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                if self.timeRemaining > 0 {
-                    self.timeRemaining -= 1
-                } else {
-                    self.stopTimer()
-                }
-            }
-        }
-    }
-    
-    func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-        timeRemaining = 10
-        self.showQR = false
-//        self.qrScanIn = false
-    }
-    
     
     func startLoadingTimer() {
         if timer2 == nil {
@@ -72,25 +52,22 @@ class MainMenuVM: ObservableObject{
         timer2 = nil
         timeLoadingRemaining = 2
         self.isLoadingAnimation = false
-//        self.qrScanIn = false
     }
     
     func generateQrBackground(){
-        if qrScanIn == true{
+        if tvm.tpvm?.statusTap == .tapOut {
             self.scanTitle = "Exit QR Code"
             self.scanSubtitle =  "Scan the QR code to end your trip"
             qrBackground = Color.rgb(67,181,74)
-            if self.balance < 14000{
-                qrBackground = Color.red
-            }
         }
-        else{
+        else {
             self.balance -= 14000
             self.scanTitle = "Entry QR Code"
             self.scanSubtitle =  "Scan the QR code to start your trip"
             qrBackground = Color.rgb(32,95,166)
             self.showPaymentSheet = true
         }
+        
     }
     
     func checkBalance(){

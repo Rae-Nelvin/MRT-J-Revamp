@@ -65,6 +65,7 @@ class NotificationController extends Controller
     public function delete($id)
     {
         $notification = Notification::where('id', $id)->first();
+        // dd($notification);
 
         if (!$notification) {
             return response()->json([
