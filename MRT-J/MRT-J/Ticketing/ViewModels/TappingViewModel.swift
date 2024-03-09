@@ -24,6 +24,7 @@ class TappingViewModel: ObservableObject {
     var timer: Timer?
     var name: String
     var email: String
+    var timer2: Timer?
     
     init(name: String, email: String, clvm: CoreLocationViewModel) {
         self.name = name

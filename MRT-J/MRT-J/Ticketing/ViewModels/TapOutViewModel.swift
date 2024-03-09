@@ -44,18 +44,21 @@ class TapOutViewModel: TappingViewModel {
     override func startTimer() {
         generateDataForQRCode(name: self.name, email: self.email)
         timer()
+        self.nvm.getNotification()
         timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { [weak self] _ in
             self?.generateDataForQRCode(name: self?.name ?? "nil", email: self?.email ?? "nil")
             self?.objectWillChange.send()
+            self?.timer()
+            self?.nvm.getNotification()
         }
     }
     
     func timer() {
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+        timer2 = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             if self?.timeLeft ?? 1 > 0 {
                 self?.timeLeft -= 1
             } else {
-                self?.timeLeft = 14
+                self?.timer2?.invalidate()
             }
         }
     }

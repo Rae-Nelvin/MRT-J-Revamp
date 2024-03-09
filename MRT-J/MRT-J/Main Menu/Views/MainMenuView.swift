@@ -85,7 +85,7 @@ struct Card: View {
         HStack{
             VStack(alignment: .leading){
                 CardText(text: "Balance", fontWeight: .medium, fontSize: 15)
-                CardText(text: "Rp\(vm.balance)", fontWeight: .heavy, fontSize: 25)
+                CardText(text: "Rp\(vm.balance).000", fontWeight: .heavy, fontSize: 25)
                 HStack{
                     CardButton(text: "+ Top Up") {
                         TopUpView(vm: self.vm)
@@ -203,7 +203,7 @@ struct QRSection: View {
 
 struct hiddenQR: View {
     @StateObject var vm: MainMenuVM
-    let tvm: TicketingViewModel = TicketingViewModel.shared
+    @ObservedObject var tvm: TicketingViewModel = TicketingViewModel.shared
     
     var body: some View {
         Button {
@@ -224,11 +224,11 @@ struct hiddenQR: View {
 
 struct shownQR: View {
     @StateObject var vm: MainMenuVM
-    var tvm: TicketingViewModel = TicketingViewModel.shared
+    @ObservedObject var tvm: TicketingViewModel = TicketingViewModel.shared
     
     var body: some View {
         VStack{
-            if tvm.isLoading == true{
+            if vm.isLoadingAnimation == true{
                 LoadingView()
             }
             else{
@@ -251,6 +251,9 @@ struct shownQR: View {
                 Text("Code reset in \(tvm.tpvm?.timeLeft ?? 0)s")
                     .foregroundColor(Color.white)
             }
+        }
+        .onReceive(tvm.tpvm?.objectWillChange ?? .init()) { _ in
+            vm.generateQrBackground()
         }
     }
 }

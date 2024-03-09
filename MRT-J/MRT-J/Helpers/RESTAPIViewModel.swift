@@ -18,7 +18,7 @@ enum APIError: Error {
 
 class RESTAPIViewModel: ObservableObject {
     
-    let ngrokURL = "https://1daa-180-252-165-117.ngrok-free.app"
+    let ngrokURL = "https://e7ed-158-140-189-122.ngrok-free.app"
     
     func getNotification(name: String, email: String, completion: @escaping (Result<Notification?, Error>) -> Void) {
         guard let encodedName = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
