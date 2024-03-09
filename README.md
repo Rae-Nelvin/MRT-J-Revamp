@@ -1,4 +1,4 @@
-# MRT-J
+# MRT-J-Revamp
 
 This innovative iOS application reimagines the Jakarta MRT experience, offering a sleek and user-friendly interface built with SwiftUI and a robust back-end powered by Laravel. It streamlines the ticketing process, enhances navigation, and provides real-time information for a smooth and stress-free commute. By combining innovative design and cutting-edge technology, this Jakarta MRT app empowers users to navigate the city's public transport system with confidence and ease. It sets a new standard for efficiency and convenience, ensuring a smooth and stress-free commute for all.
 
@@ -26,7 +26,7 @@ This innovative iOS application reimagines the Jakarta MRT experience, offering 
 
 ## Features
 
-List the key of features of MRT-J:
+List the key of features of MRT-J-Revamp:
 
 -   Modern Design (SwiftUI): The app boasts a clean and intuitive interface designed with SwiftUI, making navigation and information access effortless.
 
@@ -62,7 +62,7 @@ List the key of features of MRT-J:
 
 ## Installation
 
-Follow these steps to install and run MRT-J on your system.
+Follow these steps to install and run MRT-J-Revamp on your system.
 
 ### Prerequisites
 
@@ -82,9 +82,9 @@ Before you begin, ensure you have the following dependencies and tools installed
 
 1. Open your terminal or command prompt.
 
-2. Use the following command to clone the MRT-J repository:
+2. Use the following command to clone the MRT-J-Revamp repository:
 
-git clone https://github.com/Rae-Nelvin/MRT-J.git
+git clone https://github.com/Rae-Nelvin/MRT-J-Revamp.git
 
 3. cd RESTful-API
 
@@ -108,7 +108,7 @@ php artisan key:generate
 
 php artisan serve
 
-6. Open the MRT-J.xcodeproj
+6. Open the MRT-J-Revamp.xcodeproj
 
 7. Change the Bundle Identifier to match your own Bundle Identifier.
 
@@ -130,10 +130,10 @@ php artisan serve
 
 ## Contributing
 
-Since it's just a prototype project, I don't expect any contributions to MRT-J.
+Since it's just a prototype project, I don't expect any contributions to MRT-J-Revamp.
 
-Thank you for choosing MRT-J! If you encounter any issues or have suggestions for improvements, please don't hesitate to [create an issue](https://github.com/Rae-Nelvin/MRT-J/issues). We look forward to your feedback.
+Thank you for choosing MRT-J-Revamp! If you encounter any issues or have suggestions for improvements, please don't hesitate to [create an issue](https://github.com/Rae-Nelvin/MRT-J-Revamp/issues). We look forward to your feedback.
 
 ## License
 
-MRT-J is licensed under the [MIT License](LICENSE).
+MRT-J-Revamp is licensed under the [MIT License](LICENSE).
