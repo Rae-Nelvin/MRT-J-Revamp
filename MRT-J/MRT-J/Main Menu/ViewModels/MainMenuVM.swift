@@ -11,7 +11,7 @@ import SwiftUI
 
 class MainMenuVM: ObservableObject{
     @Published var name: String = "Helen"
-    @Published var balance: Int = 100000
+    @Published var balance: Int = 100
     @Published var currentTrainPosition = ["Lebak Bulus Grab", "Fatmawati Indomaret", "Cipete Raya", "Haji Nawi", "Blok A", "Blok M BCA", "ASEAN", "Senayan", "Istora Mandiri", "Bendungan Hilir", "SetiaBbudi Astra", "Dukuh Atas BNI", "Bundaran HI"]
     @Published var stationDistance: Int = 2
     @Published var showQR: Bool = false
@@ -67,7 +67,6 @@ class MainMenuVM: ObservableObject{
             qrBackground = Color.rgb(32,95,166)
             self.showPaymentSheet = true
         }
-        
     }
     
     func checkBalance(){

@@ -32,9 +32,11 @@ class NotificationViewModel: ObservableObject {
                         DispatchQueue.main.async {
                             self?.tvm?.statusTicketing = .success
                             self?.tvm?.checkTicket()
+                            self?.tvm?.tpvm?.timer2?.invalidate()
                         }
                     } else if notification?.status == "error" {
                         self?.tvm?.statusTicketing = .error
+                        self?.tvm?.tpvm?.timer2?.invalidate()
                     }
                     guard let notification = notification else { return }
                     self?.notifications.append(notification)
